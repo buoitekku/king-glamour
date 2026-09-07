@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NewsletterForm } from "./NewsletterForm";
+import { ConsentLink } from "./ConsentLink";
 
 const links = [
   ["/dostawa", "Dostawa"],
@@ -29,6 +30,7 @@ export function Footer() {
             {links.map(([href, label]) => (
               <Link key={href} href={href} className="link-typo-dark">{label}</Link>
             ))}
+            <ConsentLink className="link-typo-dark" />
           </p>
         </div>
         <div className="md:w-80">

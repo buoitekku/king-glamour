@@ -7,12 +7,16 @@ export function NewsletterForm({ dark = false }: { dark?: boolean }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "ok" | "error">("idle");
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     setState("loading");
-    const ok = subscribeNewsletter(email);
-    setState(ok ? "ok" : "error");
-    if (ok) setEmail("");
+    try {
+      const ok = await subscribeNewsletter(email);
+      setState(ok ? "ok" : "error");
+      if (ok) setEmail("");
+    } catch {
+      setState("error");
+    }
   };
 
   if (state === "ok") {

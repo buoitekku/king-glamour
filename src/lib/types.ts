@@ -47,6 +47,8 @@ export interface Product {
   kind: ProductKind;
   price: number;
   oldPrice?: number;
+  /** Omnibus: najniższa cena z 30 dni przed obniżką. Wymagana, gdy oldPrice jest ustawione. */
+  lowestPrice30d?: number;
   description: string;
   features: string[];
   sizes?: string[];
@@ -72,6 +74,8 @@ export interface BlogPost {
 
 export interface CartItem {
   productId: string;
+  /** Identyfikator wariantu w platformie; lokalnie nieużywany. */
+  variantId?: string;
   size?: string;
   color: string;
   quantity: number;

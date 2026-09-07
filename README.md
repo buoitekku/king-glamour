@@ -41,9 +41,13 @@ src/
   store/          koszyk i lista życzeń (zustand + localStorage)
 ```
 
+### Faza 0 bez wyboru platformy
+
+Gotowe elementy niezależne od platformy: interfejs `CommerceProvider` z rejestrem dostawców (`src/lib/commerce/`), cena Omnibus (`lowestPrice30d`), zgody cookies z Consent Mode v2, zdarzenia GA4 (`src/lib/analytics.ts`), testy e2e (`npm run e2e`) i CI. Dokumenty: `docs/backend/faza-0.md` (checklista, macierz, szablon ADR) i `docs/backend/adapter.md` (mapowanie metod na Shopify i Saleor). Zmienne środowiskowe: `.env.example`.
+
 ### Podejście headless
 
-Logika biznesowa sklepu (stany magazynowe, promocje, zamówienia, płatności, faktury, zwroty, konta) nie jest implementowana w tym repozytorium – należy do platformy e-commerce. Storefront rozmawia z nią wyłącznie przez `src/lib/commerce.ts` i `src/lib/orders.ts`.
+Logika biznesowa sklepu (stany magazynowe, promocje, zamówienia, płatności, faktury, zwroty, konta) nie jest implementowana w tym repozytorium – należy do platformy e-commerce. Storefront rozmawia z nią wyłącznie przez interfejs `CommerceProvider` (`src/lib/commerce/provider.ts`); fasady `src/lib/commerce.ts` i `src/lib/orders.ts` delegują do wybranego adaptera.
 
 Podpięcie platformy (Shopify Storefront API, Medusa, Saleor, IdoSell, Shoper):
 

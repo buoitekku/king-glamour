@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: Props) {
               <Rating value={product.rating} count={product.reviews} />
             </div>
             <div className="mt-5 border-y-2 border-ink py-3">
-              <Price price={product.price} oldPrice={product.oldPrice} size="lg" />
+              <Price price={product.price} oldPrice={product.oldPrice} lowestPrice30d={product.lowestPrice30d} size="lg" />
               <p className="mt-1 text-sm text-muted">Cena zawiera VAT. {product.price >= FREE_SHIPPING_FROM ? "Darmowa dostawa." : `Darmowa dostawa od ${formatPrice(FREE_SHIPPING_FROM)}.`}</p>
             </div>
           </>

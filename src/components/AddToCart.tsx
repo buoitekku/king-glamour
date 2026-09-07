@@ -3,11 +3,12 @@
 /* Hallmark · genre: editorial · macrostructure: Split Studio (panel zakupu) · design-system: design.md · designed-as-app */
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import type { Product } from "@/lib/types";
 import { useCart } from "@/store/cart";
 import { FREE_SHIPPING_FROM } from "@/lib/commerce";
 import { subscribeStockAlert } from "@/lib/orders";
+import { track } from "@/lib/analytics";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
 import { CartIcon, CheckIcon, MinusIcon, PlusIcon } from "./Icons";
@@ -30,10 +31,18 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
   const [alertState, setAlertState] = useState<"idle" | "ok" | "error">("idle");
   const soldOut = product.stock === 0;
 
-  const submitAlert = (e: FormEvent) => {
+  useEffect(() => {
+    track("view_item", { value: product.price, items: [{ item_id: product.sku, item_name: product.name, item_brand: product.brand, item_category: product.category, price: product.price }] });
+  }, [product]);
+
+  const submitAlert = async (e: FormEvent) => {
     e.preventDefault();
-    const ok = subscribeStockAlert(product.id, alertEmail);
-    setAlertState(ok ? "ok" : "error");
+    try {
+      const ok = await subscribeStockAlert(product.id, alertEmail);
+      setAlertState(ok ? "ok" : "error");
+    } catch {
+      setAlertState("error");
+    }
   };
 
   const submit = (fromBar = false) => {
@@ -44,6 +53,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
     }
     setError(null);
     add({ productId: product.id, size, color: color.name, quantity: qty });
+    track("add_to_cart", { value: product.price * qty, items: [{ item_id: product.sku, item_name: product.name, item_brand: product.brand, item_category: product.category, item_variant: [color.name, size].filter(Boolean).join(" / "), price: product.price, quantity: qty }] });
     setAdded(true);
     setTimeout(() => setAdded(false), 2500);
   };
@@ -178,7 +188,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
         <StickyBar targetId="kup">
           <div className="min-w-0">
             <p className="truncate text-sm text-ink">{product.name}</p>
-            <Price price={product.price} oldPrice={product.oldPrice} size="sm" />
+            <Price price={product.price} oldPrice={product.oldPrice} lowestPrice30d={product.lowestPrice30d} size="sm" />
           </div>
           <button type="button" onClick={() => submit(true)} className={`btn-primary min-h-11 shrink-0 ${added ? "!bg-forest" : ""}`}>
             {added ? <><CheckIcon width={16} height={16} /> Dodano</> : <><CartIcon width={16} height={16} /> Do koszyka</>}

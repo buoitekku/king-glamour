@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ProductListing } from "./ProductListing";
 import { PageHead } from "./PageHead";
+import { track } from "@/lib/analytics";
 
 export function SearchResults() {
   return (
@@ -18,7 +19,10 @@ function Inner() {
   const params = useSearchParams();
   const q = params.get("q") ?? "";
   const [value, setValue] = useState(q);
-  useEffect(() => setValue(q), [q]);
+  useEffect(() => {
+    setValue(q);
+    if (q) track("search", { search_term: q });
+  }, [q]);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();

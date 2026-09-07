@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useCart, useHydrated } from "@/store/cart";
 import { useCartLines } from "./CartView";
 import { FREE_SHIPPING_FROM, paymentMethods, shippingMethods } from "@/lib/commerce";
 import { createOrder, OrderError } from "@/lib/orders";
+import { track } from "@/lib/analytics";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
 import { StickyBar } from "./StickyBar";
@@ -23,6 +24,11 @@ export function CheckoutForm() {
   const [error, setError] = useState<string | null>(null);
 
   const subtotal = lines.reduce((n, l) => n + l.lineTotal, 0);
+  useEffect(() => {
+    if (!hydrated || !lines.length) return;
+    track("begin_checkout", { value: subtotal, items: lines.map((l) => ({ item_id: l.product.sku, item_name: l.product.name, item_brand: l.product.brand, price: l.product.price, quantity: l.quantity })) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
   const ship = shippingMethods.find((s) => s.id === shipping)!;
   const shippingCost = subtotal >= FREE_SHIPPING_FROM || ship.id === "pickup" ? 0 : ship.price;
   const codFee = payment === "cod" ? 5 : 0;
@@ -37,20 +43,25 @@ export function CheckoutForm() {
     );
   }
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     setError(null);
     const form = new FormData(e.currentTarget);
     const customer = Object.fromEntries(Array.from(form.entries()).map(([k, v]) => [k, String(v)]));
     try {
-      const data = createOrder({
+      const data = await createOrder({
         customer,
         shipping,
         payment,
         items: lines.map((l) => ({ productId: l.productId, size: l.size, color: l.color, quantity: l.quantity })),
       });
+      track("purchase", { transaction_id: data.orderNumber, value: data.total, shipping: shippingCost, items: lines.map((l) => ({ item_id: l.product.sku, item_name: l.product.name, item_brand: l.product.brand, price: l.product.price, quantity: l.quantity })) });
       clear();
+      if (data.redirectUrl) {
+        window.location.assign(data.redirectUrl);
+        return;
+      }
       router.push(`/zamowienie/potwierdzenie?nr=${encodeURIComponent(data.orderNumber)}&kwota=${data.total}&platnosc=${payment}`);
     } catch (err) {
       setError(err instanceof OrderError ? err.message : "Nie udało się złożyć zamówienia. Spróbuj ponownie.");

@@ -4,6 +4,8 @@ import "@fontsource-variable/source-serif-4/index.css";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { CookieConsent } from "@/components/CookieConsent";
+import { Analytics } from "@/components/Analytics";
 
 export const metadata: Metadata = {
   title: {
@@ -23,6 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );

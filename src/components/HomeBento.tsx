@@ -89,7 +89,7 @@ export function HomeBento() {
             </h2>
             <p className="mt-1 line-clamp-2 text-sm text-muted">{featured.description}</p>
             <div className="mt-auto flex items-baseline justify-between gap-3 pt-3">
-              <Price price={featured.price} oldPrice={featured.oldPrice} />
+              <Price price={featured.price} oldPrice={featured.oldPrice} lowestPrice30d={featured.lowestPrice30d} />
               <Link href={`/produkt/${featured.slug}`} className="link-typo hidden text-sm sm:inline">Zobacz produkt</Link>
             </div>
           </div>

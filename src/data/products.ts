@@ -1,6 +1,7 @@
 import type { Product, ProductKind } from "@/lib/types";
 
-type Seed = Omit<Product, "id" | "slug" | "sku" | "colors" | "rating" | "reviews" | "stock"> & {
+type Seed = Omit<Product, "id" | "slug" | "sku" | "colors" | "rating" | "reviews" | "stock" | "lowestPrice30d"> & {
+  lowestPrice30d?: number;
   colors?: { name: string; hex: string }[];
   rating?: number;
   reviews?: number;
@@ -44,7 +45,7 @@ const seeds: Seed[] = [
   // ---- KASKI ----
   { name: "Kask Samshield Shadowmatt", brand: "samshield", category: "kaski", kind: "helmet", price: 1899, description: "Ikona wśród kasków jeździeckich. Matowa skorupa, wentylacja z przodu i z tyłu, wymienna wkładka wewnętrzna z pianki pamięciowej. Certyfikat VG1 01.040 2014-12.", features: ["Skorupa z poliwęglanu wzmocnionego", "Wymienna, prana wkładka", "System wentylacji Samshield", "Certyfikat VG1 01.040"], sizes: HELMET, colors: [C.black, C.navy, C.brown], ships24h: true, isBestseller: true, rating: 4.9, reviews: 212 },
   { name: "Kask Samshield Miss Shield Glossy", brand: "samshield", category: "kaski", kind: "helmet", price: 2299, description: "Damska wersja z wydłużonym daszkiem i błyszczącym wykończeniem. Możliwość personalizacji obręczy i tylnej blaszki.", features: ["Wydłużony daszek", "Błyszczące wykończenie", "Personalizacja", "Certyfikat VG1"], sizes: HELMET, colors: [C.black, C.navy], ships24h: true, isNew: true, rating: 4.8, reviews: 64 },
-  { name: "Kask KEP Cromo 2.0 Textile", brand: "kep-italia", category: "kaski", kind: "helmet", price: 1590, oldPrice: 1790, description: "Lekki kask z tkaninową skorupą i bardzo wydajną wentylacją. Wymienne wkładki pozwalają dopasować rozmiar w zakresie 2 cm.", features: ["Waga 480 g", "Regulacja rozmiaru wkładkami", "Wentylacja Air Flow", "Certyfikat VG1"], sizes: HELMET, colors: [C.black, C.navy, C.grey], ships24h: true, rating: 4.7, reviews: 98 },
+  { name: "Kask KEP Cromo 2.0 Textile", brand: "kep-italia", category: "kaski", kind: "helmet", price: 1590, oldPrice: 1790, lowestPrice30d: 1490, description: "Lekki kask z tkaninową skorupą i bardzo wydajną wentylacją. Wymienne wkładki pozwalają dopasować rozmiar w zakresie 2 cm.", features: ["Waga 480 g", "Regulacja rozmiaru wkładkami", "Wentylacja Air Flow", "Certyfikat VG1"], sizes: HELMET, colors: [C.black, C.navy, C.grey], ships24h: true, rating: 4.7, reviews: 98 },
   { name: "Kask HKM Lady Shield Sparkle", brand: "hkm", category: "kaski", kind: "helmet", price: 349, description: "Przystępny cenowo kask z regulacją pokrętłem i wentylacją. Ozdobny pasek z kryształkami.", features: ["Regulacja pokrętłem", "Certyfikat VG1", "Odpinana wkładka"], sizes: ["S (52-55)", "M (55-58)", "L (58-61)"], colors: [C.black, C.navy, C.rose], ships24h: true, rating: 4.4, reviews: 141 },
 
   // ---- BUTY ----
@@ -133,6 +134,7 @@ export const products: Product[] = seeds.map((s, i) => ({
   slug: slugify(s.name),
   sku: `KG-${String(i + 1).padStart(4, "0")}`,
   colors: s.colors ?? [C.black],
+  lowestPrice30d: s.oldPrice ? (s.lowestPrice30d ?? s.price) : undefined,
   rating: s.rating ?? 4.5,
   reviews: s.reviews ?? 12,
   stock: s.stock ?? (s.ships24h ? 12 : 3),

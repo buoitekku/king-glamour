@@ -36,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </Link>
         <div className="mt-auto pt-1">
-          <Price price={product.price} oldPrice={product.oldPrice} />
+          <Price price={product.price} oldPrice={product.oldPrice} lowestPrice30d={product.lowestPrice30d} />
         </div>
       </div>
     </article>
