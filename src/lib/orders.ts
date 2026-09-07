@@ -54,3 +54,8 @@ export function subscribeNewsletter(email: string): boolean {
   // Tu podłącz dostawcę newslettera (np. Mailchimp, GetResponse, Klaviyo).
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
+export function subscribeStockAlert(productId: string, email: string): boolean {
+  // Tu podłącz powiadomienia o dostępności po stronie platformy.
+  return Boolean(productId) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}

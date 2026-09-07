@@ -1,10 +1,13 @@
 "use client";
 
+/* Hallmark · genre: editorial · macrostructure: Split Studio (panel zakupu) · design-system: design.md · designed-as-app */
+
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import type { Product } from "@/lib/types";
 import { useCart } from "@/store/cart";
 import { FREE_SHIPPING_FROM } from "@/lib/commerce";
+import { subscribeStockAlert } from "@/lib/orders";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
 import { CartIcon, CheckIcon, MinusIcon, PlusIcon } from "./Icons";
@@ -23,6 +26,15 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
   const [qty, setQty] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [added, setAdded] = useState(false);
+  const [alertEmail, setAlertEmail] = useState("");
+  const [alertState, setAlertState] = useState<"idle" | "ok" | "error">("idle");
+  const soldOut = product.stock === 0;
+
+  const submitAlert = (e: FormEvent) => {
+    e.preventDefault();
+    const ok = subscribeStockAlert(product.id, alertEmail);
+    setAlertState(ok ? "ok" : "error");
+  };
 
   const submit = (fromBar = false) => {
     if (product.sizes?.length && !size) {
@@ -37,7 +49,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
   };
 
   const chip = (active: boolean) =>
-    `min-w-11 rounded-card border px-3 py-2 text-sm tabular-nums ${active ? "border-ink bg-ink text-paper" : "border-rule text-ink hover:border-ink"}`;
+    `min-h-11 min-w-11 rounded-card border px-3 py-2 text-sm tabular-nums sm:min-h-0 ${active ? "border-ink bg-ink text-paper" : "border-rule text-ink hover:border-ink"}`;
 
   return (
     <div className="container-page mt-5 grid gap-8 md:grid-cols-2 md:gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
@@ -64,7 +76,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
         )}
       </div>
 
-      <div className="flex flex-col gap-6 md:self-start lg:sticky lg:top-40">
+      <div className="flex flex-col gap-6 md:self-start lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
         <div>{head}</div>
 
         <div>
@@ -79,7 +91,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
                   onClick={() => setColor(c)}
                   aria-label={c.name}
                   aria-pressed={c.name === color.name}
-                  className={`h-8 w-8 rounded-full border-2 ${c.name === color.name ? "border-ink" : "border-paper outline outline-1 outline-rule"}`}
+                  className={`h-11 w-11 rounded-full border-2 sm:h-8 sm:w-8 ${c.name === color.name ? "border-ink" : "border-paper outline outline-1 outline-rule"}`}
                   style={{ backgroundColor: c.hex }}
                 />
               </li>
@@ -88,7 +100,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
         </div>
 
         {product.sizes && (
-          <div id="rozmiar" className="scroll-mt-40">
+          <div id="rozmiar" className="scroll-mt-[calc(var(--header-h)+1rem)]">
             <div className="mb-2 flex items-baseline justify-between">
               <p className="caps">
                 Rozmiar <span className="normal-case tracking-normal text-ink">· {size ?? "wybierz"}</span>
@@ -108,17 +120,33 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
           </div>
         )}
 
+        {soldOut ? (
+          <div className="border-y border-rule py-4">
+            <p className="text-sm text-ink">Produkt chwilowo niedostępny.</p>
+            {alertState === "ok" ? (
+              <p className="mt-2 border-l-2 border-forest pl-3 text-sm text-ink-2">Damy znać na {alertEmail}, gdy wróci do magazynu.</p>
+            ) : (
+              <form onSubmit={submitAlert} className="mt-3 grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+                <label className="sr-only" htmlFor="alert-email">Adres e-mail</label>
+                <input id="alert-email" type="email" required value={alertEmail} onChange={(e) => setAlertEmail(e.target.value)} placeholder="Twój adres e-mail" className="input" />
+                <button type="submit" className="btn-secondary">Powiadom mnie</button>
+                {alertState === "error" && <p className="col-span-2 text-sm text-accent">Podaj poprawny adres e-mail.</p>}
+              </form>
+            )}
+          </div>
+        ) : (
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center rounded-card border border-rule">
-            <button type="button" onClick={() => setQty(Math.max(1, qty - 1))} className="p-2.5 hover:text-ink-2" aria-label="Zmniejsz ilość"><MinusIcon width={16} height={16} /></button>
+            <button type="button" onClick={() => setQty(Math.max(1, qty - 1))} className="p-3.5 hover:text-ink-2 sm:p-2.5" aria-label="Zmniejsz ilość"><MinusIcon width={16} height={16} /></button>
             <span className="w-8 text-center text-sm tabular-nums" aria-live="polite">{qty}</span>
-            <button type="button" onClick={() => setQty(Math.min(product.stock, qty + 1))} className="p-2.5 hover:text-ink-2" aria-label="Zwiększ ilość"><PlusIcon width={16} height={16} /></button>
+            <button type="button" onClick={() => setQty(Math.min(product.stock, qty + 1))} className="p-3.5 hover:text-ink-2 sm:p-2.5" aria-label="Zwiększ ilość"><PlusIcon width={16} height={16} /></button>
           </div>
-          <button id="kup" type="button" onClick={() => submit()} disabled={product.stock === 0} className={`btn-primary flex-1 py-3 ${added ? "!bg-forest" : ""}`}>
+          <button id="kup" type="button" onClick={() => submit()} className={`btn-primary flex-1 py-3 ${added ? "!bg-forest" : ""}`}>
             {added ? <><CheckIcon width={18} height={18} /> Dodano do koszyka</> : <><CartIcon width={18} height={18} /> Dodaj do koszyka</>}
           </button>
           <WishlistButton productId={product.id} />
         </div>
+        )}
 
         {added && (
           <p className="text-sm text-ink-2">
@@ -146,15 +174,17 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
         </ul>
       </div>
 
-      <StickyBar targetId="kup">
-        <div className="min-w-0">
-          <p className="truncate text-sm text-ink">{product.name}</p>
-          <Price price={product.price} oldPrice={product.oldPrice} size="sm" />
-        </div>
-        <button type="button" onClick={() => submit(true)} disabled={product.stock === 0} className={`btn-primary shrink-0 ${added ? "!bg-forest" : ""}`}>
-          {added ? <><CheckIcon width={16} height={16} /> Dodano</> : <><CartIcon width={16} height={16} /> Do koszyka</>}
-        </button>
-      </StickyBar>
+      {!soldOut && (
+        <StickyBar targetId="kup">
+          <div className="min-w-0">
+            <p className="truncate text-sm text-ink">{product.name}</p>
+            <Price price={product.price} oldPrice={product.oldPrice} size="sm" />
+          </div>
+          <button type="button" onClick={() => submit(true)} className={`btn-primary min-h-11 shrink-0 ${added ? "!bg-forest" : ""}`}>
+            {added ? <><CheckIcon width={16} height={16} /> Dodano</> : <><CartIcon width={16} height={16} /> Do koszyka</>}
+          </button>
+        </StickyBar>
+      )}
     </div>
   );
 }

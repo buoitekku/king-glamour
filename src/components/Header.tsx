@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { getMainCategories, getSubcategories } from "@/data/categories";
 import { brands } from "@/data/brands";
 import { useCart, useHydrated, useWishlist } from "@/store/cart";
@@ -29,6 +29,21 @@ export function Header() {
   const [q, setQ] = useState("");
   const [compact, setCompact] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+
+  // Wysokość nagłówka jako token --header-h (przyklejone panele i kotwice liczą offset z niego).
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const publish = () => {
+      const h = el.offsetHeight - (compact && !dismissed ? 32 : 0);
+      document.documentElement.style.setProperty("--header-h", `${h}px`);
+    };
+    publish();
+    const ro = new ResizeObserver(publish);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [compact, dismissed]);
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -59,6 +74,7 @@ export function Header() {
 
   return (
     <header
+      ref={ref}
       className={`sticky top-0 z-[var(--z-sticky-nav)] border-b-2 border-ink bg-paper transition-transform duration-[320ms] ease-out motion-reduce:transition-none ${
         compact && !dismissed ? "-translate-y-[var(--banner-h)]" : ""
       }`}

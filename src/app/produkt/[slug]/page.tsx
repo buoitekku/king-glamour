@@ -1,3 +1,4 @@
+/* Hallmark · genre: editorial · macrostructure: Split Studio · design-system: design.md · designed-as-app */
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -80,7 +81,7 @@ export default async function ProductPage({ params }: Props) {
             </div>
             <div className="mt-5 border-y-2 border-ink py-3">
               <Price price={product.price} oldPrice={product.oldPrice} size="lg" />
-              <p className="mt-1 text-xs text-muted">Cena zawiera VAT. {product.price >= FREE_SHIPPING_FROM ? "Darmowa dostawa." : `Darmowa dostawa od ${formatPrice(FREE_SHIPPING_FROM)}.`}</p>
+              <p className="mt-1 text-sm text-muted">Cena zawiera VAT. {product.price >= FREE_SHIPPING_FROM ? "Darmowa dostawa." : `Darmowa dostawa od ${formatPrice(FREE_SHIPPING_FROM)}.`}</p>
             </div>
           </>
         }
@@ -100,12 +101,12 @@ export default async function ProductPage({ params }: Props) {
         </div>
         <div>
           <h2 className="display mb-3 text-xl leading-none text-ink">Dane produktu</h2>
-          <table className="w-full text-sm">
-            <tbody>
+          <table className="block w-full text-sm sm:table">
+            <tbody className="block sm:table-row-group">
               {specs.map(([k, v]) => (
-                <tr key={k} className="border-b border-rule align-baseline">
-                  <th scope="row" className="caps py-2.5 pr-4 text-left font-normal">{k}</th>
-                  <td className="py-2.5 text-ink-2">{v}</td>
+                <tr key={k} className="block border-b border-rule py-2.5 align-baseline sm:table-row sm:py-0">
+                  <th scope="row" className="caps block pr-4 text-left font-normal sm:table-cell sm:py-2.5">{k}</th>
+                  <td className="block pt-0.5 text-ink-2 sm:table-cell sm:py-2.5 sm:pt-2.5">{v}</td>
                 </tr>
               ))}
             </tbody>

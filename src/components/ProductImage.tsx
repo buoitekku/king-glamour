@@ -50,10 +50,10 @@ const shapes: Record<ProductKind, string> = {
 };
 
 const bgByKind: Partial<Record<ProductKind, string>> = {
-  helmet: "#eee7dc",
-  saddle: "#e9dfd1",
-  blanket: "#e6e9e4",
-  feed: "#ece5d5",
+  helmet: "var(--color-placeholder-helmet)",
+  saddle: "var(--color-placeholder-saddle)",
+  blanket: "var(--color-placeholder-blanket)",
+  feed: "var(--color-placeholder-feed)",
 };
 
 export function ProductImage({
@@ -70,8 +70,8 @@ export function ProductImage({
   /** Sama kreska, bez tła i kółka (np. jako ornament na kolorowym kaflu). */
   plain?: boolean;
 }) {
-  const hex = color ?? product.colors[0]?.hex ?? "#3b3733";
-  const bg = bgByKind[product.kind] ?? "#efeae2";
+  const hex = color ?? product.colors[0]?.hex ?? "var(--color-placeholder-ink)";
+  const bg = bgByKind[product.kind] ?? "var(--color-placeholder)";
   return (
     <svg
       viewBox="0 0 120 120"
@@ -81,7 +81,7 @@ export function ProductImage({
       data-priority={priority ? "true" : undefined}
     >
       {!plain && <rect width="120" height="120" fill={bg} />}
-      {!plain && <circle cx="60" cy="60" r="44" fill="#fff" fillOpacity="0.55" />}
+      {!plain && <circle cx="60" cy="60" r="44" fill="var(--color-paper)" fillOpacity="0.7" />}
       <path
         d={shapes[product.kind]}
         fill="none"

@@ -16,6 +16,14 @@
   --color-accent-ink: oklch(97% 0.01 78);
   --color-focus: oklch(56% 0.16 55);
 
+  /* Placeholdery ilustracji produktów (do czasu zdjęć) */
+  --color-placeholder: oklch(94% 0.012 78);
+  --color-placeholder-helmet: oklch(93% 0.016 82);
+  --color-placeholder-saddle: oklch(91% 0.018 70);
+  --color-placeholder-blanket: oklch(93% 0.008 140);
+  --color-placeholder-feed: oklch(92% 0.02 85);
+  --color-placeholder-ink: oklch(30% 0.022 62);
+
   /* Dwa kolory towarzyszące w tym samym ziemistym klimacie:
      zieleń butelkowa (dostępność, dział 24h) i koniak skórzany (rzemień, siodło). */
   --color-forest: oklch(34% 0.07 155);
@@ -71,4 +79,5 @@
   --z-sticky-nav: 300;
   --z-modal: 400;
   --banner-h: 2rem;
+  --header-h: 8.9rem; /* aktualizowane przez Header (ResizeObserver) */
 }

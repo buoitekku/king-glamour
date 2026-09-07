@@ -48,6 +48,9 @@
     transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
   }
   .btn-primary:hover { background-color: var(--color-ink-2); }
+  @media (pointer: coarse) {
+    .btn-primary, .btn-secondary, .btn-accent, .input { min-height: 44px; }
+  }
   .btn-primary:active { transform: translateY(1px); }
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-card border border-rule bg-transparent px-5 py-2.5 text-sm font-medium text-ink;

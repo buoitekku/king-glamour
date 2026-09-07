@@ -82,7 +82,7 @@ export function CartView() {
           ))}
         </ul>
       </div>
-      <aside className="h-fit bg-paper-2 p-5 lg:sticky lg:top-40 lg:p-6">
+      <aside className="h-fit bg-paper-2 p-5 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:p-6">
         <h2 className="display border-b-2 border-ink pb-3 text-2xl leading-none text-ink">Podsumowanie</h2>
         <dl className="mt-4 space-y-2 text-sm tabular-nums">
           <div className="flex justify-between"><dt className="text-muted">Produkty</dt><dd>{formatPrice(subtotal)}</dd></div>

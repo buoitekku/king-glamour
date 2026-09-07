@@ -137,7 +137,7 @@ export function CheckoutForm() {
         </section>
       </div>
 
-      <aside className="h-fit bg-paper-2 p-5 lg:sticky lg:top-40 lg:p-6">
+      <aside className="h-fit bg-paper-2 p-5 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:p-6">
         <h2 className="display border-b-2 border-ink pb-3 text-2xl leading-none text-ink">Twoje zamówienie</h2>
         <ul className="mt-4 max-h-72 divide-y divide-rule overflow-y-auto">
           {lines.map((l) => (
