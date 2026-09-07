@@ -13,7 +13,11 @@ npm run lint && npm run typecheck
 
 ## Demo na GitHub Pages
 
-Workflow `.github/workflows/pages.yml` buduje statyczną wersję (`STATIC_EXPORT=1`, `BASE_PATH=/<nazwa-repo>`) i publikuje ją na GitHub Pages przy każdym pushu. Lokalnie:
+Workflow `.github/workflows/pages.yml` buduje statyczną wersję (`STATIC_EXPORT=1`, `BASE_PATH=/<nazwa-repo>`) i publikuje ją na GitHub Pages przy każdym pushu.
+
+Jednorazowa konfiguracja w repozytorium: **Settings → Pages → Build and deployment → Source: „GitHub Actions”**. Bez tego krok `configure-pages` kończy się błędem „Resource not accessible by integration”. Adres demo: `https://<user>.github.io/<nazwa-repo>/`.
+
+Lokalnie:
 
 ```bash
 STATIC_EXPORT=1 BASE_PATH=/king-glamour npm run build   # wynik w katalogu out/
