@@ -79,6 +79,12 @@ Okruszki w kapitalikach → `PageHead`: display h1 po lewej, lede po prawej,
 gruba linia 2 px ink pod całością. Sekcje: gruba linia 2 px + display h2 +
 link typograficzny na linii bazowej (`Section`). Bez eyebrow.
 
+## Mobile
+- Twardy próg Hallmark: 320 / 375 / 414 / 768 px bez przewijania poziomego, bez zawijania klikalnego tekstu, cele dotyku ≥ 44 px.
+- Pasek C4 (`StickyBar`) poniżej lg na stronach z jedną decydującą akcją: produkt (cena + „Do koszyka”), koszyk (suma + „Do zamówienia”), zamówienie (suma + „Zamawiam i płacę”). Pokazuje się dopiero, gdy główny przycisk wyjdzie z widoku; nigdy nie dubluje widocznego CTA.
+- Siatka produktów na listingach: domyślnie 1 kolumna poniżej sm (F6 wg cookbooka), przełącznik 1/2 zapamiętany w `localStorage` (`kg-grid`). Strona główna i „podobne produkty” zostają w 2 kolumnach.
+- Bento: 1 kolumna poniżej sm, 2 do lg, 4 od lg; wysokość kafli z treści poniżej lg.
+
 ## Per-page allowances
 - Marketing MOŻE używać pasm koloru (paper-3, forest, cognac) i ilustracji SVG jako placeholderów zdjęć.
 - Listingi i produkt: bez pasm koloru; kolor tylko w etykietach i stanach.

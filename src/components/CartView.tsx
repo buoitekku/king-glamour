@@ -7,6 +7,7 @@ import { FREE_SHIPPING_FROM } from "@/lib/commerce";
 import { formatPrice, pluralize } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
 import { MinusIcon, PlusIcon, TrashIcon } from "./Icons";
+import { StickyBar } from "./StickyBar";
 
 export function useCartLines() {
   const items = useCart((s) => s.items);
@@ -88,10 +89,16 @@ export function CartView() {
           <div className="flex justify-between"><dt className="text-muted">Dostawa</dt><dd>{missing > 0 ? "od 12,99 zł" : "0,00 zł"}</dd></div>
           <div className="flex justify-between border-t border-rule pt-3 text-lg font-semibold"><dt>Razem</dt><dd>{formatPrice(subtotal)}</dd></div>
         </dl>
-        <Link href="/zamowienie" className="btn-primary mt-5 w-full py-3">Przejdź do zamówienia</Link>
+        <Link id="do-zamowienia" href="/zamowienie" className="btn-primary mt-5 w-full py-3">Przejdź do zamówienia</Link>
         <p className="mt-3 text-center text-sm"><Link href="/" className="link-typo">Kontynuuj zakupy</Link></p>
         <p className="mt-5 text-xs text-muted">BLIK, karta, Przelewy24, za pobraniem. 30 dni na zwrot.</p>
       </aside>
+      <StickyBar targetId="do-zamowienia">
+        <p className="text-sm text-ink">
+          <span className="caps">Razem</span> <strong className="ml-2 text-lg tabular-nums">{formatPrice(subtotal)}</strong>
+        </p>
+        <Link href="/zamowienie" className="btn-primary shrink-0">Do zamówienia</Link>
+      </StickyBar>
     </div>
   );
 }

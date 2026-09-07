@@ -58,7 +58,7 @@ export default async function ProductPage({ params }: Props) {
   ];
 
   return (
-    <div className="pb-6">
+    <div className="pb-20 lg:pb-6">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="container-page pt-5 md:pt-6">
         <Breadcrumbs items={[...trail.map((c) => ({ name: c.name, href: `/kategoria/${c.slug}` })), { name: product.name }]} />

@@ -9,6 +9,8 @@ import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
 import { CartIcon, CheckIcon, MinusIcon, PlusIcon } from "./Icons";
 import { WishlistButton } from "./WishlistButton";
+import { StickyBar } from "./StickyBar";
+import { Price } from "./Price";
 
 /**
  * Dyptyk produktu (Split Studio): obraz po lewej, panel zakupu po prawej.
@@ -22,9 +24,10 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
   const [error, setError] = useState<string | null>(null);
   const [added, setAdded] = useState(false);
 
-  const submit = () => {
+  const submit = (fromBar = false) => {
     if (product.sizes?.length && !size) {
       setError("Wybierz rozmiar.");
+      if (fromBar) document.getElementById("rozmiar")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     setError(null);
@@ -85,7 +88,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
         </div>
 
         {product.sizes && (
-          <div>
+          <div id="rozmiar" className="scroll-mt-40">
             <div className="mb-2 flex items-baseline justify-between">
               <p className="caps">
                 Rozmiar <span className="normal-case tracking-normal text-ink">· {size ?? "wybierz"}</span>
@@ -111,7 +114,7 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
             <span className="w-8 text-center text-sm tabular-nums" aria-live="polite">{qty}</span>
             <button type="button" onClick={() => setQty(Math.min(product.stock, qty + 1))} className="p-2.5 hover:text-ink-2" aria-label="Zwiększ ilość"><PlusIcon width={16} height={16} /></button>
           </div>
-          <button type="button" onClick={submit} disabled={product.stock === 0} className={`btn-primary flex-1 py-3 ${added ? "!bg-forest" : ""}`}>
+          <button id="kup" type="button" onClick={() => submit()} disabled={product.stock === 0} className={`btn-primary flex-1 py-3 ${added ? "!bg-forest" : ""}`}>
             {added ? <><CheckIcon width={18} height={18} /> Dodano do koszyka</> : <><CartIcon width={18} height={18} /> Dodaj do koszyka</>}
           </button>
           <WishlistButton productId={product.id} />
@@ -142,6 +145,16 @@ export function ProductPurchase({ product, head }: { product: Product; head: Rea
           </li>
         </ul>
       </div>
+
+      <StickyBar targetId="kup">
+        <div className="min-w-0">
+          <p className="truncate text-sm text-ink">{product.name}</p>
+          <Price price={product.price} oldPrice={product.oldPrice} size="sm" />
+        </div>
+        <button type="button" onClick={() => submit(true)} disabled={product.stock === 0} className={`btn-primary shrink-0 ${added ? "!bg-forest" : ""}`}>
+          {added ? <><CheckIcon width={16} height={16} /> Dodano</> : <><CartIcon width={16} height={16} /> Do koszyka</>}
+        </button>
+      </StickyBar>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { FREE_SHIPPING_FROM, paymentMethods, shippingMethods } from "@/lib/comme
 import { createOrder, OrderError } from "@/lib/orders";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
+import { StickyBar } from "./StickyBar";
 
 export function CheckoutForm() {
   const router = useRouter();
@@ -58,7 +59,7 @@ export function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={submit} className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16">
+    <form id="checkout" onSubmit={submit} className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16">
       <div className="max-w-[60ch] space-y-10">
         <section>
           <h2 className="display mb-4 border-b-2 border-ink pb-2 text-2xl leading-none text-ink"><span className="tabular-nums text-muted">1</span> Dane kontaktowe</h2>
@@ -157,11 +158,19 @@ export function CheckoutForm() {
           <div className="flex justify-between border-t border-rule pt-3 text-lg font-semibold"><dt>Do zapłaty</dt><dd>{formatPrice(total)}</dd></div>
         </dl>
         {error && <p className="mt-3 border-l-2 border-accent pl-3 text-sm text-accent">{error}</p>}
-        <button type="submit" disabled={submitting} className="btn-primary mt-5 w-full py-3">
+        <button id="zamawiam" type="submit" disabled={submitting} className="btn-primary mt-5 w-full py-3">
           {submitting ? "Składanie zamówienia…" : "Zamawiam i płacę"}
         </button>
         <p className="mt-3 text-xs text-muted">Po kliknięciu zostaniesz przekierowany do operatora płatności.</p>
       </aside>
+      <StickyBar targetId="zamawiam">
+        <p className="text-sm text-ink">
+          <span className="caps">Do zapłaty</span> <strong className="ml-2 text-lg tabular-nums">{formatPrice(total)}</strong>
+        </p>
+        <button type="submit" form="checkout" disabled={submitting} className="btn-primary shrink-0">
+          {submitting ? "Składanie…" : "Zamawiam i płacę"}
+        </button>
+      </StickyBar>
     </form>
   );
 }

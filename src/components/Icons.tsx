@@ -57,3 +57,9 @@ export const TrashIcon = (p: P) => (
 export const FilterIcon = (p: P) => (
   <svg {...base(p)}><path d="M4 6h16M7 12h10M10 18h4" /></svg>
 );
+export const ColumnsOneIcon = (p: P) => (
+  <svg {...base(p)}><rect x="4" y="4" width="16" height="7" rx="1" /><rect x="4" y="13" width="16" height="7" rx="1" /></svg>
+);
+export const ColumnsTwoIcon = (p: P) => (
+  <svg {...base(p)}><rect x="4" y="4" width="7" height="7" rx="1" /><rect x="13" y="4" width="7" height="7" rx="1" /><rect x="4" y="13" width="7" height="7" rx="1" /><rect x="13" y="13" width="7" height="7" rx="1" /></svg>
+);
