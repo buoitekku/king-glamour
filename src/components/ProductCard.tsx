@@ -30,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
           <span>{brand?.name}</span>
           {discount > 0 && <span className="text-accent">−{discount}%</span>}
           {product.isNew && <span className="text-ink">Nowość</span>}
-          {product.ships24h && <span>24 h</span>}
+          {product.ships24h && <span className="text-forest">24 h</span>}
         </p>
         <Link href={`/produkt/${product.slug}`} className="line-clamp-2 text-base leading-snug text-ink hover:underline">
           {product.name}

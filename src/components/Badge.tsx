@@ -4,7 +4,7 @@ export function Badge({ children, tone = "neutral" }: { children: React.ReactNod
     neutral: "text-muted",
     sale: "text-accent",
     new: "text-ink",
-    fast: "text-muted",
+    fast: "text-forest",
   };
   return <span className={`caps inline-block ${tones[tone]}`}>{children}</span>;
 }

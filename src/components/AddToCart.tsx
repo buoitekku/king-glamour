@@ -101,7 +101,7 @@ export function ProductPurchase({ product }: { product: Product }) {
             <span className="w-8 text-center text-sm font-medium" aria-live="polite">{qty}</span>
             <button type="button" onClick={() => setQty(Math.min(product.stock, qty + 1))} className="p-2.5" aria-label="Zwiększ ilość"><PlusIcon width={16} height={16} /></button>
           </div>
-          <button type="button" onClick={submit} className={`btn-primary flex-1 py-3 ${added ? "bg-emerald-700 hover:bg-emerald-700" : ""}`}>
+          <button type="button" onClick={submit} className={`btn-primary flex-1 py-3 ${added ? "!bg-forest" : ""}`}>
             {added ? <><CheckIcon width={18} height={18} /> Dodano do koszyka</> : <><CartIcon width={18} height={18} /> Dodaj do koszyka</>}
           </button>
           <WishlistButton productId={product.id} label />
@@ -114,7 +114,7 @@ export function ProductPurchase({ product }: { product: Product }) {
         )}
 
         <p className="text-sm text-ink-500">
-          {product.stock > 5 ? <span className="text-emerald-700">● Dostępny</span> : product.stock > 0 ? <span className="text-amber-600">● Ostatnie sztuki ({product.stock})</span> : <span className="text-accent">● Niedostępny</span>}
+          {product.stock > 5 ? <span className="text-forest">● Dostępny</span> : product.stock > 0 ? <span className="text-cognac">● Ostatnie sztuki ({product.stock})</span> : <span className="text-accent">● Niedostępny</span>}
           {product.ships24h ? " · wysyłka w 24 h" : " · wysyłka w 3–5 dni roboczych"}
         </p>
       </div>

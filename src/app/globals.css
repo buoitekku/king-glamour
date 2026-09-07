@@ -97,6 +97,12 @@
   .tile:hover { background-color: var(--color-rule-2); }
   .tile-dark { @apply bg-paper-3 text-ink-on-dark; }
   .tile-dark:hover { background-color: var(--color-paper-3); }
+  .tile-forest { @apply bg-forest text-ink-on-dark; }
+  .tile-forest:hover { background-color: var(--color-forest); }
+  .tile-cognac { @apply bg-cognac text-ink-on-dark; }
+  .tile-cognac:hover { background-color: var(--color-cognac); }
+  .tile-soft { @apply bg-cognac-soft; }
+  .tile-soft:hover { background-color: var(--color-cognac-soft); }
   .prose-shop p {
     @apply mb-4 leading-relaxed text-ink-2;
   }

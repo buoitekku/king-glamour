@@ -22,7 +22,7 @@ function Inner() {
   const payment = paymentMethods.find((p) => p.id === sp.get("platnosc"));
   return (
     <div className="mx-auto max-w-xl rounded-lg border border-ink-100 p-8 text-center">
-      <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-100 text-emerald-700"><CheckIcon width={28} height={28} /></span>
+      <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-forest-soft text-forest"><CheckIcon width={28} height={28} /></span>
       <h1 className="mt-4 font-serif text-3xl font-semibold text-ink-900">Dziękujemy za zamówienie!</h1>
       <p className="mt-2 text-ink-500">Numer zamówienia</p>
       <p className="font-mono text-xl font-semibold text-ink-900">{nr}</p>

@@ -14,7 +14,8 @@ const config: Config = {
         rule: { DEFAULT: "var(--color-rule)", 2: "var(--color-rule-2)" },
         muted: { DEFAULT: "var(--color-muted)", "on-dark": "var(--color-muted-on-dark)" },
         focus: "var(--color-focus)",
-        ok: "var(--color-ok)",
+        forest: { DEFAULT: "var(--color-forest)", soft: "var(--color-forest-soft)" },
+        cognac: { DEFAULT: "var(--color-cognac)", soft: "var(--color-cognac-soft)" },
         brand: {
           50: "#f6f3ee",
           100: "#ebe4d8",

@@ -45,9 +45,9 @@ export function CartView() {
     <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
       <div>
         <div className="mb-4 rounded-md bg-brand-50 px-4 py-3 text-sm text-ink-700">
-          {missing > 0 ? <>Dodaj produkty za <strong>{formatPrice(missing)}</strong>, aby otrzymać darmową dostawę.</> : <strong className="text-emerald-700">Masz darmową dostawę!</strong>}
+          {missing > 0 ? <>Dodaj produkty za <strong>{formatPrice(missing)}</strong>, aby otrzymać darmową dostawę.</> : <strong className="text-forest">Masz darmową dostawę!</strong>}
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white">
-            <div className="h-full bg-brand-700 transition-all" style={{ width: `${Math.min(100, (subtotal / FREE_SHIPPING_FROM) * 100)}%` }} />
+            <div className="h-full bg-forest transition-[width] duration-[220ms] ease-out" style={{ width: `${Math.min(100, (subtotal / FREE_SHIPPING_FROM) * 100)}%` }} />
           </div>
         </div>
         <ul className="divide-y divide-ink-100 rounded-lg border border-ink-100">

@@ -167,7 +167,7 @@ export function Header() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`caps flex items-center gap-1 whitespace-nowrap px-3 py-3 ${l.accent ? "!text-accent" : "!text-ink hover:!text-ink-2"}`}
+                className={`caps flex items-center gap-1 whitespace-nowrap px-3 py-3 ${l.accent ? "!text-forest" : "!text-ink hover:!text-ink-2"}`}
               >
                 {l.accent && <ClockIcon width={13} height={13} />}
                 {l.label}
@@ -212,7 +212,7 @@ export function Header() {
                 <ul className="space-y-2">
                   {quickLinks.map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} className={`text-sm ${l.accent ? "text-accent" : "text-ink"}`}>{l.label}</Link>
+                      <Link href={l.href} className={`text-sm ${l.accent ? "text-forest" : "text-ink"}`}>{l.label}</Link>
                     </li>
                   ))}
                   <li><Link href="/konto" className="text-sm text-ink-2">Moje konto</Link></li>

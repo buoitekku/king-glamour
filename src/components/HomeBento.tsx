@@ -47,11 +47,11 @@ export function HomeBento() {
         </article>
 
         {/* 1×1 — dział 24h */}
-        <article className="tile" style={idx()}>
-          <p className="caps">Dział 24h</p>
-          <p className="mt-2 font-display text-3xl font-light leading-none tabular-nums text-ink">{fastCount}</p>
-          <p className="mt-1 text-sm text-muted">{pluralize(fastCount, "produkt gotowy", "produkty gotowe", "produktów gotowych")} do wysyłki dziś</p>
-          <p className="mt-auto pt-3"><Link href="/24h" className="link-typo text-sm">Przeglądaj</Link></p>
+        <article className="tile tile-forest" style={idx()}>
+          <p className="caps text-muted-on-dark">Dział 24h</p>
+          <p className="mt-2 font-display text-3xl font-light leading-none tabular-nums text-ink-on-dark">{fastCount}</p>
+          <p className="mt-1 text-sm text-muted-on-dark">{pluralize(fastCount, "produkt gotowy", "produkty gotowe", "produktów gotowych")} do wysyłki dziś</p>
+          <p className="mt-auto pt-3"><Link href="/24h" className="link-typo-dark text-sm">Przeglądaj</Link></p>
         </article>
 
         {/* 1×2 — Jeździec z podkategoriami */}
@@ -78,7 +78,7 @@ export function HomeBento() {
 
         {/* 2×1 — wyróżniony produkt */}
         <article className="tile col-span-2 flex-row items-stretch gap-4 p-0" style={idx()}>
-          <Link href={`/produkt/${featured.slug}`} className="block w-2/5 shrink-0 bg-paper-2">
+          <Link href={`/produkt/${featured.slug}`} className="block w-2/5 shrink-0 bg-cognac-soft">
             <ProductImage product={featured} className="h-full w-full object-cover" />
           </Link>
           <div className="flex min-w-0 flex-1 flex-col py-5 pr-5">
@@ -111,12 +111,11 @@ export function HomeBento() {
         </article>
 
         {/* 2×1 — blog */}
-        <article className="tile col-span-2" style={idx()}>
+        <article className="tile tile-soft col-span-2" style={idx()}>
           <p className="caps">Blog · {formatDate(post.date)}</p>
           <h2 className="mt-2 font-display text-xl font-light leading-tight text-ink md:text-2xl">
             <Link href={`/blog/${post.slug}`} className="hover:underline">{post.title}</Link>
           </h2>
-          <p className="mt-2 hidden max-w-[60ch] truncate text-sm text-muted md:block">{post.excerpt}</p>
           <p className="mt-auto pt-3"><Link href="/blog" className="link-typo text-sm">Wszystkie wpisy</Link></p>
         </article>
 
@@ -161,11 +160,11 @@ export function HomeBento() {
         </article>
 
         {/* 1×1 — sklep stacjonarny */}
-        <article className="tile" style={idx()}>
-          <p className="caps">Sklep stacjonarny</p>
-          <p className="mt-2 text-sm leading-snug text-ink">ul. Jeździecka 1<br />90-001 Łódź</p>
-          <p className="mt-1 text-sm text-muted">pn–pt 10–18, sob 10–14</p>
-          <p className="mt-auto pt-3"><Link href="/kontakt" className="link-typo text-sm">Kontakt</Link></p>
+        <article className="tile tile-cognac" style={idx()}>
+          <p className="caps text-muted-on-dark">Sklep stacjonarny</p>
+          <p className="mt-2 text-sm leading-snug text-ink-on-dark">ul. Jeździecka 1<br />90-001 Łódź</p>
+          <p className="mt-1 text-sm text-muted-on-dark">pn–pt 10–18, sob 10–14</p>
+          <p className="mt-auto pt-3"><Link href="/kontakt" className="link-typo-dark text-sm">Kontakt</Link></p>
         </article>
 
         {/* 1×1 — dostawa i zwroty */}

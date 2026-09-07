@@ -15,7 +15,13 @@
   --color-accent: oklch(46% 0.19 22);
   --color-accent-ink: oklch(97% 0.01 78);
   --color-focus: oklch(56% 0.16 55);
-  --color-ok: oklch(46% 0.1 150);
+
+  /* Dwa kolory towarzyszące w tym samym ziemistym klimacie:
+     zieleń butelkowa (dostępność, dział 24h) i koniak skórzany (rzemień, siodło). */
+  --color-forest: oklch(34% 0.07 155);
+  --color-forest-soft: oklch(91% 0.03 150);
+  --color-cognac: oklch(45% 0.11 58);
+  --color-cognac-soft: oklch(92% 0.035 72);
 
   /* Type — Fraunces (display) + Source Serif 4 (body), self-hosted */
   --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
