@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-ink-900 antialiased;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-brand-800 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-300 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-ink-300 bg-white px-5 py-2.5 text-sm font-semibold text-ink-900 transition hover:border-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-300;
+  }
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-300 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .input {
+    @apply w-full rounded-md border border-ink-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 outline-none placeholder:text-ink-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-200;
+  }
+  .icon-btn {
+    @apply flex flex-col items-center gap-0.5 rounded-md px-2 py-1.5 text-ink-700 hover:bg-brand-50 hover:text-brand-800;
+  }
+  .prose-shop p {
+    @apply mb-4 leading-relaxed text-ink-700;
+  }
+  .prose-shop h2 {
+    @apply mb-3 mt-8 font-serif text-xl font-semibold text-ink-900;
+  }
+  .prose-shop ul {
+    @apply mb-4 list-disc space-y-1 pl-5 text-ink-700;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}

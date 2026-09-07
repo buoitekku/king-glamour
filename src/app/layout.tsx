@@ -1,0 +1,27 @@
+import type { Metadata } from "next";
+import "./globals.css";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: {
+    default: "King Glamour – sklep jeździecki online",
+    template: "%s | King Glamour",
+  },
+  description:
+    "Sklep jeździecki King Glamour: kaski, siodła, derki, ochraniacze, odzież i wyposażenie stajni. Wysyłka w 24h, darmowa dostawa od 299 zł, zwrot do 30 dni.",
+  metadataBase: new URL("https://kingglamour.pl"),
+  openGraph: { type: "website", locale: "pl_PL", siteName: "King Glamour" },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pl">
+      <body className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}
