@@ -1,25 +1,18 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { subscribeNewsletter } from "@/lib/orders";
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "ok" | "error">("idle");
 
-  const submit = async (e: FormEvent) => {
+  const submit = (e: FormEvent) => {
     e.preventDefault();
     setState("loading");
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      setState(res.ok ? "ok" : "error");
-      if (res.ok) setEmail("");
-    } catch {
-      setState("error");
-    }
+    const ok = subscribeNewsletter(email);
+    setState(ok ? "ok" : "error");
+    if (ok) setEmail("");
   };
 
   if (state === "ok") {

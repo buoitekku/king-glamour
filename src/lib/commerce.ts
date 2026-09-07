@@ -49,7 +49,7 @@ export async function getProductsByIds(ids: string[]): Promise<Product[]> {
   return ids.map((id) => products.find((p) => p.id === id)).filter(Boolean) as Product[];
 }
 
-export async function queryProducts(query: ProductQuery): Promise<Product[]> {
+export function filterProducts(query: ProductQuery): Product[] {
   let list = products.slice();
 
   if (query.category) {
@@ -91,6 +91,10 @@ export async function queryProducts(query: ProductQuery): Promise<Product[]> {
       list.sort((a, b) => Number(!!b.isBestseller) - Number(!!a.isBestseller) || b.reviews - a.reviews);
   }
   return list;
+}
+
+export async function queryProducts(query: ProductQuery): Promise<Product[]> {
+  return filterProducts(query);
 }
 
 export async function getBestsellers(limit = 8) {

@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 import { useCart, useHydrated } from "@/store/cart";
 import { useCartLines } from "./CartView";
 import { FREE_SHIPPING_FROM, paymentMethods, shippingMethods } from "@/lib/commerce";
+import { createOrder, OrderError } from "@/lib/orders";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
 
@@ -35,29 +36,23 @@ export function CheckoutForm() {
     );
   }
 
-  const submit = async (e: FormEvent<HTMLFormElement>) => {
+  const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     setError(null);
     const form = new FormData(e.currentTarget);
-    const customer = Object.fromEntries(form.entries());
+    const customer = Object.fromEntries(Array.from(form.entries()).map(([k, v]) => [k, String(v)]));
     try {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customer,
-          shipping,
-          payment,
-          items: lines.map((l) => ({ productId: l.productId, size: l.size, color: l.color, quantity: l.quantity })),
-        }),
+      const data = createOrder({
+        customer,
+        shipping,
+        payment,
+        items: lines.map((l) => ({ productId: l.productId, size: l.size, color: l.color, quantity: l.quantity })),
       });
-      if (!res.ok) throw new Error(await res.text());
-      const data = (await res.json()) as { orderNumber: string; total: number };
       clear();
       router.push(`/zamowienie/potwierdzenie?nr=${encodeURIComponent(data.orderNumber)}&kwota=${data.total}&platnosc=${payment}`);
     } catch (err) {
-      setError(err instanceof Error && err.message ? err.message : "Nie udało się złożyć zamówienia. Spróbuj ponownie.");
+      setError(err instanceof OrderError ? err.message : "Nie udało się złożyć zamówienia. Spróbuj ponownie.");
       setSubmitting(false);
     }
   };

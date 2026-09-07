@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function Pagination({ page, pages, basePath, params }: { page: number; pages: number; basePath: string; params: URLSearchParams }) {
+export function Pagination({ page, pages, basePath, params }: { page: number; pages: number; basePath: string; params: { toString(): string } }) {
   if (pages <= 1) return null;
   const href = (p: number) => {
     const next = new URLSearchParams(params.toString());

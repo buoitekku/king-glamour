@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { categories, getBreadcrumbs, getCategory, getSubcategories } from "@/data/categories";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { ProductListing, type SearchParams } from "@/components/ProductListing";
+import { ProductListing } from "@/components/ProductListing";
 
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<SearchParams> };
+type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
@@ -17,9 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: cat.name, description: cat.description ?? `${cat.name} – sklep jeździecki King Glamour.` };
 }
 
-export default async function CategoryPage({ params, searchParams }: Props) {
+export default async function CategoryPage({ params }: Props) {
   const { slug } = await params;
-  const sp = await searchParams;
   const cat = getCategory(slug);
   if (!cat) notFound();
   const trail = getBreadcrumbs(slug);
@@ -49,7 +48,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         </ul>
       )}
 
-      <ProductListing base={{ category: slug }} searchParams={sp} basePath={`/kategoria/${slug}`} />
+      <ProductListing base={{ category: slug }} basePath={`/kategoria/${slug}`} />
     </div>
   );
 }
