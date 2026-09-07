@@ -2,6 +2,18 @@
   {
     "date": "2026-09-07",
     "macrostructure": "Bento Grid",
+    "theme": "Editorial",
+    "genre": "editorial",
+    "tone": "luxury-with-contrast",
+    "enrichment": "none",
+    "nav": "N12",
+    "footer": "Ft1 (dark)",
+    "brief": "King Glamour · strona główna, rewizja 2: ciężki display, ciemne hero i stopka, pasma koloru (na prośbę: mniej mdło)",
+    "note": "Ta sama makrostruktura na życzenie użytkownika; zmienione pokrętła: waga display 640, ciemne hero, pasmo kolekcji na zieleni, kafle w kolorze, grube linie 2 px."
+  },
+  {
+    "date": "2026-09-07",
+    "macrostructure": "Bento Grid",
     "theme": "Atelier",
     "genre": "editorial",
     "tone": "luxury",

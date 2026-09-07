@@ -15,7 +15,7 @@
   }
   h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 300;
+    font-weight: var(--weight-title);
     font-style: normal;
     letter-spacing: var(--tracking-display);
     overflow-wrap: anywhere;
@@ -103,6 +103,10 @@
   .tile-cognac:hover { background-color: var(--color-cognac); }
   .tile-soft { @apply bg-cognac-soft; }
   .tile-soft:hover { background-color: var(--color-cognac-soft); }
+  /* Gruba linia sekcji: atrament, 2 px */
+  .rule-strong { border-top: var(--rule-strong) solid var(--color-ink); }
+  .rule-strong-dark { border-top: var(--rule-strong) solid var(--color-ink-on-dark); }
+  .display { font-family: var(--font-display); font-weight: var(--weight-display); letter-spacing: var(--tracking-display); line-height: 1; }
   .prose-shop p {
     @apply mb-4 leading-relaxed text-ink-2;
   }

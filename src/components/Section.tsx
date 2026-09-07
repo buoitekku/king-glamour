@@ -1,9 +1,8 @@
 import Link from "next/link";
 
 /**
- * Sekcja z wiszącym nagłówkiem (S2): tytuł unosi się nad treścią w pustej
- * przestrzeni, bez linii i bez eyebrow. Odstępy różnią się między
- * wariantami, żeby rytm strony nie był jednostajny.
+ * Sekcja z grubą linią i nagłówkiem na linii bazowej z linkiem.
+ * Dwa rytmy odstępów, żeby strona nie miała jednej miary.
  */
 export function Section({
   title,
@@ -22,19 +21,17 @@ export function Section({
   className?: string;
   rhythm?: "loose" | "tight";
 }) {
-  const pad = rhythm === "loose" ? "pt-16 pb-10 md:pt-24 md:pb-12" : "pt-8 pb-10 md:pt-10 md:pb-14";
+  const pad = rhythm === "loose" ? "pt-14 pb-10 md:pt-20 md:pb-12" : "pt-6 pb-10 md:pt-8 md:pb-14";
   return (
     <section className={`container-page ${pad} ${className}`}>
-      <header className="mb-6 max-w-[40ch] md:mb-8">
-        <h2 className="font-display text-2xl font-light leading-none text-ink md:text-3xl">{title}</h2>
-        {subtitle && <p className="mt-2 text-sm text-muted">{subtitle}</p>}
+      <header className="rule-strong mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 pt-4 md:mb-8">
+        <div className="max-w-[40ch]">
+          <h2 className="display text-3xl leading-none text-ink md:text-[2.8rem]">{title}</h2>
+          {subtitle && <p className="mt-2 text-base text-muted">{subtitle}</p>}
+        </div>
+        {href && <Link href={href} className="link-typo text-base">{linkLabel}</Link>}
       </header>
       {children}
-      {href && (
-        <p className="mt-8">
-          <Link href={href} className="link-typo text-base">{linkLabel}</Link>
-        </p>
-      )}
     </section>
   );
 }

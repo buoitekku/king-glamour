@@ -25,23 +25,24 @@ export function HomeBento() {
   const idx = () => ({ "--i": i++ } as React.CSSProperties);
 
   return (
-    <section aria-label="Wejścia do sklepu" className="container-page">
-      <div className="grid auto-rows-[10.5rem] grid-flow-dense grid-cols-2 gap-3 md:auto-rows-[11.5rem] lg:grid-cols-4 lg:gap-4">
+    <section aria-label="Wejścia do sklepu" className="container-page pt-4 md:pt-6">
+      <div className="grid auto-rows-[minmax(9rem,auto)] grid-flow-dense grid-cols-1 gap-3 sm:grid-cols-2 lg:auto-rows-[11.5rem] lg:grid-cols-4 lg:gap-4">
         {/* 2×2 — kolekcja sezonu */}
-        <article className="tile tile-dark col-span-2 row-span-2" style={idx()}>
-          <p className="caps text-muted-on-dark">Kolekcja jesień 2026</p>
-          <h2 className="mt-3 font-display text-3xl font-light leading-none text-ink-on-dark md:text-[3.25rem]">
+        <article className="tile tile-cognac min-h-[18rem] sm:col-span-2 sm:row-span-2" style={idx()}>
+          <p className="caps !text-ink-on-dark">Kolekcja jesień 2026</p>
+          <h2 className="display mt-3 text-3xl leading-none text-ink-on-dark md:text-[3.75rem]">
             Eskadron<br />Reflexx
           </h2>
-          <p className="mt-3 max-w-[30ch] text-sm text-muted-on-dark">Czapraki, kantary i bluzy w kolorach sezonu.</p>
+          <p className="mt-3 max-w-[30ch] text-base text-ink-on-dark">Czapraki, kantary i bluzy w kolorach sezonu.</p>
           <p className="mt-auto">
             <Link href="/marki/eskadron" className="link-typo-dark text-sm">Zobacz kolekcję</Link>
           </p>
           {collectionPad && (
             <ProductImage
               product={collectionPad}
-              color="var(--color-rule)"
-              className="pointer-events-none absolute -bottom-6 -right-6 w-[58%] max-w-[18rem] opacity-90 md:-bottom-8"
+              color="var(--color-cognac-soft)"
+              plain
+              className="pointer-events-none absolute -bottom-8 -right-8 w-[64%] max-w-[20rem] opacity-60 md:-bottom-10"
             />
           )}
         </article>
@@ -49,14 +50,14 @@ export function HomeBento() {
         {/* 1×1 — dział 24h */}
         <article className="tile tile-forest" style={idx()}>
           <p className="caps text-muted-on-dark">Dział 24h</p>
-          <p className="mt-2 font-display text-3xl font-light leading-none tabular-nums text-ink-on-dark">{fastCount}</p>
+          <p className="display mt-2 text-[3.25rem] tabular-nums text-ink-on-dark">{fastCount}</p>
           <p className="mt-1 text-sm text-muted-on-dark">{pluralize(fastCount, "produkt gotowy", "produkty gotowe", "produktów gotowych")} do wysyłki dziś</p>
           <p className="mt-auto pt-3"><Link href="/24h" className="link-typo-dark text-sm">Przeglądaj</Link></p>
         </article>
 
         {/* 1×2 — Jeździec z podkategoriami */}
-        <article className="tile row-span-2" style={idx()}>
-          <h2 className="font-display text-lg font-light leading-tight text-ink md:text-xl">
+        <article className="tile sm:row-span-2" style={idx()}>
+          <h2 className="font-display text-2xl font-title leading-none text-ink md:text-[1.75rem]">
             <Link href="/kategoria/jezdziec" className="link-typo whitespace-normal">Jeździec</Link>
           </h2>
           <ul className="mt-4 space-y-1.5 text-sm text-ink-2">
@@ -71,19 +72,19 @@ export function HomeBento() {
         {/* 1×1 — promocje */}
         <article className="tile" style={idx()}>
           <p className="caps">Promocje</p>
-          <p className="mt-2 font-display text-3xl font-light leading-none tabular-nums text-accent">do −{maxDiscount}%</p>
+          <p className="display mt-2 text-[3.25rem] tabular-nums text-accent">−{maxDiscount}%</p>
           <p className="mt-1 text-sm text-muted">{sale.length} {pluralize(sale.length, "produkt", "produkty", "produktów")} w obniżonej cenie</p>
           <p className="mt-auto pt-3"><Link href="/promocje" className="link-typo text-sm">Wszystkie promocje</Link></p>
         </article>
 
         {/* 2×1 — wyróżniony produkt */}
-        <article className="tile col-span-2 flex-row items-stretch gap-4 p-0" style={idx()}>
-          <Link href={`/produkt/${featured.slug}`} className="block w-2/5 shrink-0 bg-cognac-soft">
+        <article className="tile flex-row items-stretch gap-4 p-0 sm:col-span-2" style={idx()}>
+          <Link href={`/produkt/${featured.slug}`} className="block w-1/3 shrink-0 bg-paper sm:w-2/5">
             <ProductImage product={featured} className="h-full w-full object-cover" />
           </Link>
           <div className="flex min-w-0 flex-1 flex-col py-5 pr-5">
             <p className="caps">Bestseller</p>
-            <h2 className="mt-2 font-display text-xl font-light leading-tight text-ink md:text-2xl">
+            <h2 className="mt-2 font-display text-xl font-title leading-tight text-ink sm:text-2xl">
               <Link href={`/produkt/${featured.slug}`} className="hover:underline">{featured.name}</Link>
             </h2>
             <p className="mt-1 line-clamp-2 text-sm text-muted">{featured.description}</p>
@@ -96,7 +97,7 @@ export function HomeBento() {
 
         {/* 1×1 — Koń */}
         <article className="tile" style={idx()}>
-          <h2 className="font-display text-lg font-light leading-tight text-ink md:text-xl">
+          <h2 className="font-display text-2xl font-title leading-none text-ink md:text-[1.75rem]">
             <Link href="/kategoria/kon" className="link-typo whitespace-normal">Koń</Link>
           </h2>
           <p className="mt-2 text-sm text-muted">Siodła, ogłowia, derki, ochraniacze, pielęgnacja, pasze.</p>
@@ -104,24 +105,24 @@ export function HomeBento() {
 
         {/* 1×1 — Stajnia */}
         <article className="tile" style={idx()}>
-          <h2 className="font-display text-lg font-light leading-tight text-ink md:text-xl">
+          <h2 className="font-display text-2xl font-title leading-none text-ink md:text-[1.75rem]">
             <Link href="/kategoria/stajnia" className="link-typo whitespace-normal">Stajnia i wybieg</Link>
           </h2>
           <p className="mt-2 text-sm text-muted">Siatki na siano, wiadra, zabawki, ogrodzenia.</p>
         </article>
 
         {/* 2×1 — blog */}
-        <article className="tile tile-soft col-span-2" style={idx()}>
-          <p className="caps">Blog · {formatDate(post.date)}</p>
-          <h2 className="mt-2 font-display text-xl font-light leading-tight text-ink md:text-2xl">
+        <article className="tile tile-dark sm:col-span-2" style={idx()}>
+          <p className="caps text-muted-on-dark">Blog · {formatDate(post.date)}</p>
+          <h2 className="mt-2 font-display text-2xl font-title leading-tight text-ink-on-dark">
             <Link href={`/blog/${post.slug}`} className="hover:underline">{post.title}</Link>
           </h2>
-          <p className="mt-auto pt-3"><Link href="/blog" className="link-typo text-sm">Wszystkie wpisy</Link></p>
+          <p className="mt-auto pt-3"><Link href="/blog" className="link-typo-dark text-sm">Wszystkie wpisy</Link></p>
         </article>
 
         {/* 1×1 — Specjalistyczne */}
         <article className="tile" style={idx()}>
-          <h2 className="font-display text-lg font-light leading-tight text-ink md:text-xl">
+          <h2 className="font-display text-2xl font-title leading-none text-ink md:text-[1.75rem]">
             <Link href="/kategoria/specjalistyczne" className="link-typo whitespace-normal">Specjalistyczne</Link>
           </h2>
           <p className="mt-2 text-sm text-muted">Hobby horse, western, akcesoria dla psa.</p>
@@ -141,7 +142,7 @@ export function HomeBento() {
         </article>
 
         {/* 2×1 — nowości, dwa produkty */}
-        <article className="tile col-span-2" style={idx()}>
+        <article className="tile sm:col-span-2" style={idx()}>
           <p className="caps">Nowości</p>
           <ul className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-4">
             {fresh.map((p) => (
@@ -160,11 +161,11 @@ export function HomeBento() {
         </article>
 
         {/* 1×1 — sklep stacjonarny */}
-        <article className="tile tile-cognac" style={idx()}>
-          <p className="caps text-muted-on-dark">Sklep stacjonarny</p>
-          <p className="mt-2 text-sm leading-snug text-ink-on-dark">ul. Jeździecka 1<br />90-001 Łódź</p>
-          <p className="mt-1 text-sm text-muted-on-dark">pn–pt 10–18, sob 10–14</p>
-          <p className="mt-auto pt-3"><Link href="/kontakt" className="link-typo-dark text-sm">Kontakt</Link></p>
+        <article className="tile tile-soft" style={idx()}>
+          <p className="caps">Sklep stacjonarny</p>
+          <p className="mt-2 font-display text-xl font-title leading-tight text-ink">ul. Jeździecka 1<br />Łódź</p>
+          <p className="mt-1 text-sm text-muted">pn–pt 10–18, sob 10–14</p>
+          <p className="mt-auto pt-3"><Link href="/kontakt" className="link-typo text-sm">Kontakt</Link></p>
         </article>
 
         {/* 1×1 — dostawa i zwroty */}

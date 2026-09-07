@@ -48,7 +48,11 @@ const config: Config = {
         body: ["var(--font-body)", "Georgia", "serif"],
       },
       fontSize: {
-        display: ["var(--text-display)", { lineHeight: "1.05", letterSpacing: "var(--tracking-display)" }],
+        display: ["var(--text-display)", { lineHeight: "1", letterSpacing: "var(--tracking-display)" }],
+      },
+      fontWeight: {
+        display: "var(--weight-display)",
+        title: "var(--weight-title)",
       },
       borderRadius: {
         card: "var(--radius-card)",

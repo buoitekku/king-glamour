@@ -59,12 +59,12 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-[var(--z-sticky-nav)] border-b border-rule bg-paper transition-transform duration-[320ms] ease-out motion-reduce:transition-none ${
+      className={`sticky top-0 z-[var(--z-sticky-nav)] border-b-2 border-ink bg-paper transition-transform duration-[320ms] ease-out motion-reduce:transition-none ${
         compact && !dismissed ? "-translate-y-[var(--banner-h)]" : ""
       }`}
     >
       {!dismissed && (
-        <div className="bg-paper-3 text-muted-on-dark">
+        <div className="bg-forest text-muted-on-dark">
           <div className="container-page flex h-[var(--banner-h)] items-center justify-between gap-4 text-xs">
             <p className="truncate">
               <span className="text-ink-on-dark">Darmowa dostawa</span> od 299 zł · zwrot do 30 dni · wysyłka w 24 h z działu 24h
@@ -127,7 +127,7 @@ export function Header() {
         <ul className="container-page flex items-center gap-1">
           {mainCategories.map((cat) => (
             <li key={cat.slug} className="group relative">
-              <Link href={`/kategoria/${cat.slug}`} className="caps flex items-center gap-1 whitespace-nowrap px-3 py-3 !text-ink hover:!text-ink-2">
+              <Link href={`/kategoria/${cat.slug}`} className="caps flex items-center gap-1 whitespace-nowrap px-3 py-3 font-semibold !text-ink hover:!text-ink-2">
                 {cat.name} <ChevronDownIcon width={12} height={12} />
               </Link>
               <div className="invisible absolute left-0 top-full z-[var(--z-dropdown)] w-[560px] border border-rule bg-paper p-6 opacity-0 shadow-whisper transition-opacity duration-[220ms] ease-out group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
@@ -167,7 +167,7 @@ export function Header() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`caps flex items-center gap-1 whitespace-nowrap px-3 py-3 ${l.accent ? "!text-forest" : "!text-ink hover:!text-ink-2"}`}
+                className={`caps flex items-center gap-1 whitespace-nowrap px-3 py-3 font-semibold ${l.accent ? "!text-forest" : "!text-ink hover:!text-ink-2"}`}
               >
                 {l.accent && <ClockIcon width={13} height={13} />}
                 {l.label}

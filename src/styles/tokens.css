@@ -1,4 +1,4 @@
-/* Hallmark · genre: editorial · macrostructure: Bento Grid · theme: Atelier · tone: luxury · anchor hue: 78 · enrichment: none · nav: N12 · footer: Ft1 · slop: pass (42–45) */
+/* Hallmark · genre: editorial · macrostructure: Bento Grid (rev. 2: heavy display, dark hero, colour bands) · theme: Editorial · tone: luxury-with-contrast · anchor hue: 78 · enrichment: none · nav: N12 · footer: Ft1 (dark) · slop: pass (42–45) */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 */
 :root {
   /* Paper, ink, rules — warm anchor (hue 78), tinted, no pure extremes */
@@ -34,8 +34,10 @@
   --text-xl: 1.75rem;
   --text-2xl: 2.25rem;
   --text-3xl: 2.8rem;
-  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
-  --tracking-display: -0.02em;
+  --text-display: clamp(3rem, 6vw + 0.5rem, 5.5rem);
+  --tracking-display: -0.025em;
+  --weight-display: 640;
+  --weight-title: 560;
   --tracking-caps: 0.1em;
 
   /* Space — 4-pt scale, named by role */
@@ -59,6 +61,7 @@
 
   /* Rules, radii, layers */
   --rule-hair: 1px;
+  --rule-strong: 2px;
   --radius-card: 2px;
   --radius-input: 2px;
   --radius-pill: 999px;

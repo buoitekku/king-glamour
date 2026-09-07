@@ -61,11 +61,14 @@ export function ProductImage({
   color,
   className = "",
   priority,
+  plain,
 }: {
   product: Product;
   color?: string;
   className?: string;
   priority?: boolean;
+  /** Sama kreska, bez tła i kółka (np. jako ornament na kolorowym kaflu). */
+  plain?: boolean;
 }) {
   const hex = color ?? product.colors[0]?.hex ?? "#3b3733";
   const bg = bgByKind[product.kind] ?? "#efeae2";
@@ -77,8 +80,8 @@ export function ProductImage({
       className={className}
       data-priority={priority ? "true" : undefined}
     >
-      <rect width="120" height="120" fill={bg} />
-      <circle cx="60" cy="60" r="44" fill="#fff" fillOpacity="0.55" />
+      {!plain && <rect width="120" height="120" fill={bg} />}
+      {!plain && <circle cx="60" cy="60" r="44" fill="#fff" fillOpacity="0.55" />}
       <path
         d={shapes[product.kind]}
         fill="none"

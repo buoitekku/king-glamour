@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
           {product.isNew && <span className="text-ink">Nowość</span>}
           {product.ships24h && <span className="text-forest">24 h</span>}
         </p>
-        <Link href={`/produkt/${product.slug}`} className="line-clamp-2 text-base leading-snug text-ink hover:underline">
+        <Link href={`/produkt/${product.slug}`} className="line-clamp-2 font-display text-lg font-title leading-snug text-ink hover:underline">
           {product.name}
         </Link>
         <div className="mt-auto pt-1">

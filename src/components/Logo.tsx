@@ -10,7 +10,7 @@ export function Logo({ className = "" }: { className?: string }) {
         </svg>
       </span>
       <span className="leading-none">
-        <span className="block whitespace-nowrap font-display text-lg font-medium tracking-tight text-ink">King Glamour</span>
+        <span className="block whitespace-nowrap font-display text-xl font-display tracking-tight text-ink">King Glamour</span>
         <span className="caps hidden whitespace-nowrap text-[10px] sm:block">sklep jeździecki</span>
       </span>
     </Link>
