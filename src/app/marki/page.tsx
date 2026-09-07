@@ -2,25 +2,25 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { brands } from "@/data/brands";
 import { products } from "@/data/products";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageHead } from "@/components/PageHead";
+import { pluralize } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Marki" };
 
+/** Indeks marek jako lista typograficzna z liniami (Catalogue). */
 export default function BrandsPage() {
   return (
-    <div className="container-page py-6">
-      <Breadcrumbs items={[{ name: "Marki" }]} />
-      <h1 className="mt-4 mb-2 font-serif text-3xl font-semibold text-ink-900">Marki</h1>
-      <p className="mb-8 max-w-2xl text-ink-500">Jesteśmy autoryzowanym dystrybutorem wszystkich marek dostępnych w sklepie.</p>
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="pb-10">
+      <PageHead crumbs={[{ name: "Marki" }]} title="Marki" lead="Jesteśmy autoryzowanym dystrybutorem wszystkich marek dostępnych w sklepie." />
+      <ul className="container-page mt-2">
         {brands.map((b) => {
           const count = products.filter((p) => p.brand === b.slug).length;
           return (
-            <li key={b.slug}>
-              <Link href={`/marki/${b.slug}`} className="block h-full rounded-lg border border-ink-100 p-5 transition hover:border-brand-300 hover:shadow-card">
-                <h2 className="font-serif text-xl font-semibold text-ink-900">{b.name}</h2>
-                <p className="text-xs uppercase tracking-wide text-ink-500">{b.country} · {count} produktów</p>
-                <p className="mt-2 text-sm text-ink-700">{b.description}</p>
+            <li key={b.slug} className="border-b border-rule">
+              <Link href={`/marki/${b.slug}`} className="group grid gap-1 py-5 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)_auto] md:items-baseline md:gap-8 md:py-6">
+                <span className="display text-2xl leading-none text-ink group-hover:underline group-hover:decoration-1 group-hover:underline-offset-8 md:text-[2.25rem]">{b.name}</span>
+                <span className="text-base text-ink-2">{b.description}</span>
+                <span className="caps tabular-nums md:text-right">{b.country} · {count} {pluralize(count, "produkt", "produkty", "produktów")}</span>
               </Link>
             </li>
           );

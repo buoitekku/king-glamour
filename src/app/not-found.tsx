@@ -2,13 +2,17 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="container-page py-24 text-center">
-      <p className="text-xs uppercase tracking-[0.25em] text-ink-500">Błąd 404</p>
-      <h1 className="mt-2 font-serif text-4xl font-semibold text-ink-900">Nie znaleźliśmy tej strony</h1>
-      <p className="mt-3 text-ink-500">Produkt mógł zostać wycofany lub adres jest nieprawidłowy.</p>
-      <div className="mt-8 flex justify-center gap-3">
-        <Link href="/" className="btn-primary">Strona główna</Link>
-        <Link href="/szukaj" className="btn-secondary">Wyszukiwarka</Link>
+    <div className="container-page grid gap-6 pt-16 pb-16 md:grid-cols-[3fr_2fr] md:gap-16 md:pt-24">
+      <div>
+        <p className="caps">Błąd 404</p>
+        <h1 className="display mt-3 text-[2.6rem] leading-none text-ink md:text-[3.75rem]">Nie znaleźliśmy<br />tej strony.</h1>
+      </div>
+      <div className="md:pt-2">
+        <p className="max-w-[40ch] text-base text-ink-2">Produkt mógł zostać wycofany lub adres jest nieprawidłowy.</p>
+        <p className="mt-6 flex flex-wrap gap-3">
+          <Link href="/" className="btn-primary">Strona główna</Link>
+          <Link href="/szukaj" className="btn-secondary">Wyszukiwarka</Link>
+        </p>
       </div>
     </div>
   );

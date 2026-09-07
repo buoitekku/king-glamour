@@ -24,7 +24,7 @@ interface Props {
  */
 export function ProductListing(props: Props) {
   return (
-    <Suspense fallback={<p className="text-ink-500">Ładowanie produktów…</p>}>
+    <Suspense fallback={<p className="text-muted">Ładowanie produktów…</p>}>
       <Listing {...props} />
     </Suspense>
   );
@@ -56,11 +56,11 @@ function Listing({ base, basePath, hideBrand, hide24h }: Props) {
   }, [base, key]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
+    <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12">
       <Filters {...facets} hideBrand={hideBrand} hide24h={hide24h} />
       <div>
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <p className="text-sm text-ink-500">
+        <div className="mb-5 flex items-center justify-between gap-4 border-b border-rule pb-3">
+          <p className="text-sm tabular-nums text-muted">
             {all.length} {pluralize(all.length, "produkt", "produkty", "produktów")}
           </p>
           <SortSelect />

@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
+import { PageHead } from "@/components/PageHead";
 import { ProductListing } from "@/components/ProductListing";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = { title: "Nowości" };
 
 export default function Page() {
   return (
-    <div className="container-page py-6">
-      <Breadcrumbs items={[{ name: "Nowości" }]} />
-      <div className="mt-4 mb-6">
-        <h1 className="font-serif text-3xl font-semibold text-ink-900">Nowości</h1>
-        <p className="mt-2 max-w-2xl text-ink-500">Właśnie dotarły do magazynu: nowe kolekcje Samshield, Pikeur, Eskadron i Kentucky.</p>
+    <div className="pb-6">
+      <PageHead crumbs={[{ name: "Nowości" }]} title="Nowości" lead="Właśnie dotarły do magazynu: nowe kolekcje Samshield, Pikeur, Eskadron i Kentucky." />
+      <div className="container-page pt-8">
+        <ProductListing base={{ isNew: true }} basePath="/nowosci" />
       </div>
-      <ProductListing base={{ isNew: true }} basePath="/nowosci" />
     </div>
   );
 }

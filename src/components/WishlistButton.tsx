@@ -14,9 +14,10 @@ export function WishlistButton({ productId, label }: { productId: string; label?
       onClick={() => toggle(productId)}
       aria-pressed={active}
       aria-label={active ? "Usuń z ulubionych" : "Dodaj do ulubionych"}
-      className={`inline-flex items-center gap-2 rounded-full border bg-white/90 p-2 text-sm transition ${
-        active ? "border-accent text-accent" : "border-ink-100 text-ink-500 hover:text-accent"
-      } ${label ? "px-4" : ""}`}
+      className={`inline-flex items-center gap-2 whitespace-nowrap rounded-card border bg-paper p-2 text-sm ${
+        active ? "border-accent text-accent" : "border-rule text-ink-2 hover:border-ink"
+      } ${label ? "px-4 py-2.5" : ""}`}
+      style={{ transition: "border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out)" }}
     >
       <HeartIcon width={18} height={18} fill={active ? "currentColor" : "none"} />
       {label && (active ? "W ulubionych" : "Do ulubionych")}

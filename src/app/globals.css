@@ -108,13 +108,18 @@
   .rule-strong-dark { border-top: var(--rule-strong) solid var(--color-ink-on-dark); }
   .display { font-family: var(--font-display); font-weight: var(--weight-display); letter-spacing: var(--tracking-display); line-height: 1; }
   .prose-shop p {
-    @apply mb-4 leading-relaxed text-ink-2;
+    @apply mb-5 text-ink-2;
+    line-height: 1.65;
   }
   .prose-shop h2 {
-    @apply mb-3 mt-8 font-serif text-xl text-ink;
+    @apply mb-3 mt-10 font-display text-2xl font-title leading-none text-ink;
   }
   .prose-shop ul {
-    @apply mb-4 list-disc space-y-1 pl-5 text-ink-2;
+    @apply mb-5 list-disc space-y-1.5 pl-5 text-ink-2;
+    line-height: 1.6;
+  }
+  .prose-shop a {
+    @apply link-typo;
   }
 }
 

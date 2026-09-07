@@ -27,11 +27,11 @@ export function CheckoutForm() {
   const codFee = payment === "cod" ? 5 : 0;
   const total = subtotal + shippingCost + codFee;
 
-  if (!hydrated) return <p className="text-ink-500">Ładowanie…</p>;
+  if (!hydrated) return <p className="text-muted">Ładowanie…</p>;
   if (!lines.length) {
     return (
-      <p className="rounded-lg border border-dashed border-ink-300 p-8 text-center text-ink-500">
-        Koszyk jest pusty. <Link href="/" className="text-brand-700 underline">Wróć do sklepu</Link>.
+      <p className="max-w-[46ch] border-b border-rule pb-8 text-base text-muted">
+        Koszyk jest pusty. <Link href="/" className="link-typo">Wróć do sklepu</Link>.
       </p>
     );
   }
@@ -58,10 +58,10 @@ export function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={submit} className="grid gap-8 lg:grid-cols-[1fr_380px]">
-      <div className="space-y-8">
+    <form onSubmit={submit} className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16">
+      <div className="max-w-[60ch] space-y-10">
         <section>
-          <h2 className="mb-4 font-serif text-xl font-semibold">1. Dane kontaktowe</h2>
+          <h2 className="display mb-4 border-b-2 border-ink pb-2 text-2xl leading-none text-ink"><span className="tabular-nums text-muted">1</span> Dane kontaktowe</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             <Field name="email" label="E-mail" type="email" required autoComplete="email" />
             <Field name="phone" label="Telefon" type="tel" required autoComplete="tel" />
@@ -69,7 +69,7 @@ export function CheckoutForm() {
         </section>
 
         <section>
-          <h2 className="mb-4 font-serif text-xl font-semibold">2. Adres dostawy</h2>
+          <h2 className="display mb-4 border-b-2 border-ink pb-2 text-2xl leading-none text-ink"><span className="tabular-nums text-muted">2</span> Adres dostawy</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             <Field name="firstName" label="Imię" required autoComplete="given-name" />
             <Field name="lastName" label="Nazwisko" required autoComplete="family-name" />
@@ -78,7 +78,7 @@ export function CheckoutForm() {
             <Field name="city" label="Miasto" required autoComplete="address-level2" />
           </div>
           <label className="mt-3 flex items-center gap-2 text-sm">
-            <input type="checkbox" name="invoice" checked={invoice} onChange={(e) => setInvoice(e.target.checked)} className="accent-brand-700" /> Chcę otrzymać fakturę VAT
+            <input type="checkbox" name="invoice" checked={invoice} onChange={(e) => setInvoice(e.target.checked)} className="h-4 w-4 accent-[var(--color-ink)]" /> Chcę otrzymać fakturę VAT
           </label>
           {invoice && (
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -89,17 +89,17 @@ export function CheckoutForm() {
         </section>
 
         <section>
-          <h2 className="mb-4 font-serif text-xl font-semibold">3. Sposób dostawy</h2>
-          <ul className="space-y-2">
+          <h2 className="display mb-4 border-b-2 border-ink pb-2 text-2xl leading-none text-ink"><span className="tabular-nums text-muted">3</span> Sposób dostawy</h2>
+          <ul className="divide-y divide-rule border-y border-rule">
             {shippingMethods.map((m) => (
               <li key={m.id}>
-                <label className={`flex cursor-pointer items-center gap-3 rounded-md border p-3 ${shipping === m.id ? "border-brand-800 bg-brand-50" : "border-ink-100"}`}>
-                  <input type="radio" name="shipping" value={m.id} checked={shipping === m.id} onChange={() => setShipping(m.id)} className="accent-brand-700" />
+                <label className={`flex cursor-pointer items-center gap-3 px-2 py-3 ${shipping === m.id ? "bg-paper-2" : "hover:bg-paper-2/60"}`}>
+                  <input type="radio" name="shipping" value={m.id} checked={shipping === m.id} onChange={() => setShipping(m.id)} className="h-4 w-4 accent-[var(--color-ink)]" />
                   <span className="flex-1">
-                    <span className="block text-sm font-medium text-ink-900">{m.name}</span>
-                    <span className="block text-xs text-ink-500">{m.description} · {m.eta}</span>
+                    <span className="block text-sm font-semibold text-ink">{m.name}</span>
+                    <span className="block text-xs text-muted">{m.description} · {m.eta}</span>
                   </span>
-                  <span className="text-sm font-medium">{m.price === 0 || subtotal >= FREE_SHIPPING_FROM ? "0,00 zł" : formatPrice(m.price)}</span>
+                  <span className="text-sm font-semibold tabular-nums">{m.price === 0 || subtotal >= FREE_SHIPPING_FROM ? "0,00 zł" : formatPrice(m.price)}</span>
                 </label>
               </li>
             ))}
@@ -108,15 +108,15 @@ export function CheckoutForm() {
         </section>
 
         <section>
-          <h2 className="mb-4 font-serif text-xl font-semibold">4. Płatność</h2>
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <h2 className="display mb-4 border-b-2 border-ink pb-2 text-2xl leading-none text-ink"><span className="tabular-nums text-muted">4</span> Płatność</h2>
+          <ul className="divide-y divide-rule border-y border-rule">
             {paymentMethods.map((m) => (
               <li key={m.id}>
-                <label className={`flex cursor-pointer items-center gap-3 rounded-md border p-3 ${payment === m.id ? "border-brand-800 bg-brand-50" : "border-ink-100"}`}>
-                  <input type="radio" name="payment" value={m.id} checked={payment === m.id} onChange={() => setPayment(m.id)} className="accent-brand-700" />
+                <label className={`flex cursor-pointer items-center gap-3 px-2 py-3 ${payment === m.id ? "bg-paper-2" : "hover:bg-paper-2/60"}`}>
+                  <input type="radio" name="payment" value={m.id} checked={payment === m.id} onChange={() => setPayment(m.id)} className="h-4 w-4 accent-[var(--color-ink)]" />
                   <span>
-                    <span className="block text-sm font-medium text-ink-900">{m.name}</span>
-                    <span className="block text-xs text-ink-500">{m.description}</span>
+                    <span className="block text-sm font-semibold text-ink">{m.name}</span>
+                    <span className="block text-xs text-muted">{m.description}</span>
                   </span>
                 </label>
               </li>
@@ -125,42 +125,42 @@ export function CheckoutForm() {
         </section>
 
         <section>
-          <label className="flex items-start gap-2 text-sm text-ink-700">
-            <input type="checkbox" name="terms" required className="mt-1 accent-brand-700" />
-            <span>Akceptuję <Link href="/regulamin" className="underline">regulamin</Link> i <Link href="/polityka-prywatnosci" className="underline">politykę prywatności</Link> sklepu King Glamour.</span>
+          <label className="flex items-start gap-2 text-sm text-ink-2">
+            <input type="checkbox" name="terms" required className="mt-1 h-4 w-4 accent-[var(--color-ink)]" />
+            <span>Akceptuję <Link href="/regulamin" className="link-typo">regulamin</Link> i <Link href="/polityka-prywatnosci" className="link-typo">politykę prywatności</Link> sklepu King Glamour.</span>
           </label>
-          <label className="mt-2 flex items-start gap-2 text-sm text-ink-700">
-            <input type="checkbox" name="newsletter" className="mt-1 accent-brand-700" />
+          <label className="mt-2 flex items-start gap-2 text-sm text-ink-2">
+            <input type="checkbox" name="newsletter" className="mt-1 h-4 w-4 accent-[var(--color-ink)]" />
             <span>Chcę otrzymywać newsletter z promocjami i nowościami.</span>
           </label>
         </section>
       </div>
 
-      <aside className="h-fit rounded-lg border border-ink-100 bg-brand-50 p-5 lg:sticky lg:top-36">
-        <h2 className="font-serif text-xl font-semibold">Twoje zamówienie</h2>
-        <ul className="mt-4 max-h-72 space-y-3 overflow-y-auto">
+      <aside className="h-fit bg-paper-2 p-5 lg:sticky lg:top-40 lg:p-6">
+        <h2 className="display border-b-2 border-ink pb-3 text-2xl leading-none text-ink">Twoje zamówienie</h2>
+        <ul className="mt-4 max-h-72 divide-y divide-rule overflow-y-auto">
           {lines.map((l) => (
-            <li key={`${l.productId}-${l.size}-${l.color}`} className="flex items-center gap-3 text-sm">
-              <ProductImage product={l.product} color={l.product.colors.find((c) => c.name === l.color)?.hex} className="h-12 w-12 shrink-0 rounded" />
-              <span className="flex-1">
-                <span className="line-clamp-1 text-ink-900">{l.product.name}</span>
-                <span className="text-xs text-ink-500">{l.quantity} szt. · {l.color}{l.size ? ` · ${l.size}` : ""}</span>
+            <li key={`${l.productId}-${l.size}-${l.color}`} className="flex items-center gap-3 py-2.5 text-sm">
+              <ProductImage product={l.product} color={l.product.colors.find((c) => c.name === l.color)?.hex} plain className="h-12 w-12 shrink-0 bg-paper" />
+              <span className="min-w-0 flex-1">
+                <span className="line-clamp-1 text-ink">{l.product.name}</span>
+                <span className="text-xs text-muted">{l.quantity} szt. · {l.color}{l.size ? ` · ${l.size}` : ""}</span>
               </span>
-              <span className="font-medium">{formatPrice(l.lineTotal)}</span>
+              <span className="font-semibold tabular-nums">{formatPrice(l.lineTotal)}</span>
             </li>
           ))}
         </ul>
-        <dl className="mt-4 space-y-2 border-t border-ink-100 pt-4 text-sm">
-          <div className="flex justify-between"><dt className="text-ink-500">Produkty</dt><dd>{formatPrice(subtotal)}</dd></div>
-          <div className="flex justify-between"><dt className="text-ink-500">Dostawa ({ship.name})</dt><dd>{formatPrice(shippingCost)}</dd></div>
-          {codFee > 0 && <div className="flex justify-between"><dt className="text-ink-500">Opłata za pobranie</dt><dd>{formatPrice(codFee)}</dd></div>}
-          <div className="flex justify-between border-t border-ink-100 pt-2 text-base font-semibold"><dt>Do zapłaty</dt><dd>{formatPrice(total)}</dd></div>
+        <dl className="mt-4 space-y-2 border-t border-rule pt-4 text-sm tabular-nums">
+          <div className="flex justify-between"><dt className="text-muted">Produkty</dt><dd>{formatPrice(subtotal)}</dd></div>
+          <div className="flex justify-between"><dt className="text-muted">Dostawa ({ship.name})</dt><dd>{formatPrice(shippingCost)}</dd></div>
+          {codFee > 0 && <div className="flex justify-between"><dt className="text-muted">Opłata za pobranie</dt><dd>{formatPrice(codFee)}</dd></div>}
+          <div className="flex justify-between border-t border-rule pt-3 text-lg font-semibold"><dt>Do zapłaty</dt><dd>{formatPrice(total)}</dd></div>
         </dl>
-        {error && <p className="mt-3 rounded-md bg-red-50 px-3 py-2 text-sm text-accent">{error}</p>}
+        {error && <p className="mt-3 border-l-2 border-accent pl-3 text-sm text-accent">{error}</p>}
         <button type="submit" disabled={submitting} className="btn-primary mt-5 w-full py-3">
           {submitting ? "Składanie zamówienia…" : "Zamawiam i płacę"}
         </button>
-        <p className="mt-3 text-xs text-ink-500">Po kliknięciu zostaniesz przekierowany do operatora płatności.</p>
+        <p className="mt-3 text-xs text-muted">Po kliknięciu zostaniesz przekierowany do operatora płatności.</p>
       </aside>
     </form>
   );
@@ -169,7 +169,7 @@ export function CheckoutForm() {
 function Field({ label, className = "", ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label: string; name: string }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-1 block text-xs font-medium text-ink-700">{label}{props.required && " *"}</span>
+      <span className="caps mb-1.5 block">{label}{props.required && " *"}</span>
       <input {...props} className="input" />
     </label>
   );

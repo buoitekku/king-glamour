@@ -17,8 +17,8 @@ export function SortSelect() {
   const params = useSearchParams();
   const current = (params.get("sort") as SortKey) ?? "popular";
   return (
-    <label className="flex items-center gap-2 text-sm text-ink-700">
-      <span className="hidden sm:inline">Sortuj:</span>
+    <label className="flex items-center gap-2 text-sm text-ink-2">
+      <span className="caps hidden sm:inline">Sortuj</span>
       <select
         value={current}
         onChange={(e) => {

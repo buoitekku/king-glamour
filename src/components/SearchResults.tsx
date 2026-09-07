@@ -3,10 +3,11 @@
 import { Suspense, useEffect, useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ProductListing } from "./ProductListing";
+import { PageHead } from "./PageHead";
 
 export function SearchResults() {
   return (
-    <Suspense fallback={<p className="mt-6 text-ink-500">Ładowanie…</p>}>
+    <Suspense fallback={<p className="container-page py-6 text-muted">Ładowanie…</p>}>
       <Inner />
     </Suspense>
   );
@@ -26,14 +27,19 @@ function Inner() {
 
   return (
     <>
-      <form onSubmit={submit} className="mt-4 mb-6 flex max-w-xl gap-2">
-        <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Czego szukasz?" className="input" aria-label="Szukaj" autoFocus={!q} />
-        <button type="submit" className="btn-primary">Szukaj</button>
-      </form>
-      <h1 className="mb-6 font-serif text-3xl font-semibold text-ink-900">
-        {q ? <>Wyniki dla: <span className="text-brand-700">„{q}”</span></> : "Wszystkie produkty"}
-      </h1>
-      <ProductListing key={q} base={{ q }} basePath="/szukaj" />
+      <PageHead
+        crumbs={[{ name: "Wyszukiwanie" }]}
+        title={q ? <>Wyniki: „{q}”</> : "Wszystkie produkty"}
+        lead={
+          <form onSubmit={submit} className="flex w-full gap-2">
+            <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Czego szukasz?" className="input" aria-label="Szukaj" autoFocus={!q} />
+            <button type="submit" className="btn-primary">Szukaj</button>
+          </form>
+        }
+      />
+      <div className="container-page pt-6">
+        <ProductListing key={q} base={{ q }} basePath="/szukaj" />
+      </div>
     </>
   );
 }

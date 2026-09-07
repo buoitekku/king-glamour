@@ -18,6 +18,7 @@ export function useCartLines() {
     .filter(Boolean) as (typeof items[number] & { product: (typeof products)[number]; lineTotal: number })[];
 }
 
+/** Koszyk (Workbench): wiersze z liniami, przyklejone podsumowanie na paper-2. */
 export function CartView() {
   const hydrated = useHydrated();
   const lines = useCartLines();
@@ -26,67 +27,70 @@ export function CartView() {
   const subtotal = lines.reduce((n, l) => n + l.lineTotal, 0);
   const missing = Math.max(0, FREE_SHIPPING_FROM - subtotal);
 
-  if (!hydrated) return <p className="text-ink-500">Ładowanie koszyka…</p>;
+  if (!hydrated) return <p className="text-muted">Ładowanie koszyka…</p>;
 
   if (!lines.length) {
     return (
-      <div className="rounded-lg border border-dashed border-ink-300 p-12 text-center">
-        <p className="text-lg font-medium text-ink-900">Twój koszyk jest pusty</p>
-        <p className="mt-1 text-sm text-ink-500">Zajrzyj do bestsellerów albo działu 24h.</p>
-        <div className="mt-6 flex justify-center gap-3">
+      <div className="max-w-[46ch] border-b border-rule pb-8">
+        <p className="display text-2xl leading-none text-ink">Koszyk jest pusty.</p>
+        <p className="mt-3 text-base text-muted">Zajrzyj do bestsellerów albo do działu 24h.</p>
+        <p className="mt-5 flex flex-wrap gap-3">
           <Link href="/" className="btn-primary">Strona główna</Link>
           <Link href="/24h" className="btn-secondary">Dział 24h</Link>
-        </div>
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
       <div>
-        <div className="mb-4 rounded-md bg-brand-50 px-4 py-3 text-sm text-ink-700">
-          {missing > 0 ? <>Dodaj produkty za <strong>{formatPrice(missing)}</strong>, aby otrzymać darmową dostawę.</> : <strong className="text-forest">Masz darmową dostawę!</strong>}
-          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white">
-            <div className="h-full bg-forest transition-[width] duration-[220ms] ease-out" style={{ width: `${Math.min(100, (subtotal / FREE_SHIPPING_FROM) * 100)}%` }} />
-          </div>
+        <div className="mb-2 flex items-baseline justify-between text-sm">
+          <span className="text-ink-2">
+            {missing > 0 ? <>Do darmowej dostawy brakuje <strong className="tabular-nums">{formatPrice(missing)}</strong>.</> : <strong className="text-forest">Masz darmową dostawę.</strong>}
+          </span>
+          <span className="caps tabular-nums">{lines.length} {pluralize(lines.length, "produkt", "produkty", "produktów")}</span>
         </div>
-        <ul className="divide-y divide-ink-100 rounded-lg border border-ink-100">
+        <div className="h-0.5 w-full bg-rule-2">
+          <div className="h-full bg-forest" style={{ width: `${Math.min(100, (subtotal / FREE_SHIPPING_FROM) * 100)}%`, transition: "width var(--dur-short) var(--ease-out)" }} />
+        </div>
+        <ul className="mt-2 divide-y divide-rule border-b border-rule">
           {lines.map((l) => (
-            <li key={`${l.productId}-${l.size}-${l.color}`} className="flex gap-4 p-4">
-              <Link href={`/produkt/${l.product.slug}`} className="shrink-0">
-                <ProductImage product={l.product} color={l.product.colors.find((c) => c.name === l.color)?.hex} className="h-24 w-24 rounded-md" />
+            <li key={`${l.productId}-${l.size}-${l.color}`} className="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 py-5 sm:grid-cols-[6rem_minmax(0,1fr)_auto] sm:gap-6">
+              <Link href={`/produkt/${l.product.slug}`} className="block bg-paper-2">
+                <ProductImage product={l.product} color={l.product.colors.find((c) => c.name === l.color)?.hex} plain className="aspect-square w-full" />
               </Link>
-              <div className="flex flex-1 flex-col gap-1">
-                <Link href={`/produkt/${l.product.slug}`} className="font-medium text-ink-900 hover:underline">{l.product.name}</Link>
-                <p className="text-xs text-ink-500">
-                  Kolor: {l.color}{l.size ? ` · Rozmiar: ${l.size}` : ""} · SKU {l.product.sku}
+              <div className="min-w-0">
+                <Link href={`/produkt/${l.product.slug}`} className="font-display text-lg font-title leading-tight text-ink hover:underline">{l.product.name}</Link>
+                <p className="caps mt-1">
+                  {l.color}{l.size ? ` · ${l.size}` : ""} · {l.product.sku}
                 </p>
-                <div className="mt-auto flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center rounded-md border border-ink-300">
-                    <button type="button" onClick={() => setQuantity(l.productId, l.size, l.color, l.quantity - 1)} className="p-2" aria-label="Zmniejsz ilość"><MinusIcon width={14} height={14} /></button>
-                    <span className="w-8 text-center text-sm">{l.quantity}</span>
-                    <button type="button" onClick={() => setQuantity(l.productId, l.size, l.color, Math.min(l.product.stock, l.quantity + 1))} className="p-2" aria-label="Zwiększ ilość"><PlusIcon width={14} height={14} /></button>
+                <div className="mt-3 flex items-center gap-4">
+                  <div className="flex items-center rounded-card border border-rule">
+                    <button type="button" onClick={() => setQuantity(l.productId, l.size, l.color, l.quantity - 1)} className="p-2 hover:text-ink-2" aria-label="Zmniejsz ilość"><MinusIcon width={14} height={14} /></button>
+                    <span className="w-8 text-center text-sm tabular-nums">{l.quantity}</span>
+                    <button type="button" onClick={() => setQuantity(l.productId, l.size, l.color, Math.min(l.product.stock, l.quantity + 1))} className="p-2 hover:text-ink-2" aria-label="Zwiększ ilość"><PlusIcon width={14} height={14} /></button>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="font-semibold text-ink-900">{formatPrice(l.lineTotal)}</span>
-                    <button type="button" onClick={() => remove(l.productId, l.size, l.color)} className="text-ink-500 hover:text-accent" aria-label="Usuń z koszyka"><TrashIcon width={18} height={18} /></button>
-                  </div>
+                  <button type="button" onClick={() => remove(l.productId, l.size, l.color)} className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent" aria-label={`Usuń ${l.product.name} z koszyka`}>
+                    <TrashIcon width={16} height={16} /> Usuń
+                  </button>
                 </div>
               </div>
+              <p className="col-start-2 text-lg font-semibold tabular-nums text-ink sm:col-start-3 sm:text-right">{formatPrice(l.lineTotal)}</p>
             </li>
           ))}
         </ul>
       </div>
-      <aside className="h-fit rounded-lg border border-ink-100 bg-brand-50 p-5 lg:sticky lg:top-36">
-        <h2 className="font-serif text-xl font-semibold text-ink-900">Podsumowanie</h2>
-        <dl className="mt-4 space-y-2 text-sm">
-          <div className="flex justify-between"><dt className="text-ink-500">{lines.length} {pluralize(lines.length, "produkt", "produkty", "produktów")}</dt><dd>{formatPrice(subtotal)}</dd></div>
-          <div className="flex justify-between"><dt className="text-ink-500">Dostawa</dt><dd>{missing > 0 ? "od 12,99 zł" : "0,00 zł"}</dd></div>
-          <div className="flex justify-between border-t border-ink-100 pt-2 text-base font-semibold"><dt>Razem</dt><dd>{formatPrice(subtotal)}</dd></div>
+      <aside className="h-fit bg-paper-2 p-5 lg:sticky lg:top-40 lg:p-6">
+        <h2 className="display border-b-2 border-ink pb-3 text-2xl leading-none text-ink">Podsumowanie</h2>
+        <dl className="mt-4 space-y-2 text-sm tabular-nums">
+          <div className="flex justify-between"><dt className="text-muted">Produkty</dt><dd>{formatPrice(subtotal)}</dd></div>
+          <div className="flex justify-between"><dt className="text-muted">Dostawa</dt><dd>{missing > 0 ? "od 12,99 zł" : "0,00 zł"}</dd></div>
+          <div className="flex justify-between border-t border-rule pt-3 text-lg font-semibold"><dt>Razem</dt><dd>{formatPrice(subtotal)}</dd></div>
         </dl>
         <Link href="/zamowienie" className="btn-primary mt-5 w-full py-3">Przejdź do zamówienia</Link>
-        <Link href="/" className="btn-secondary mt-2 w-full">Kontynuuj zakupy</Link>
-        <p className="mt-4 text-xs text-ink-500">Płatności: BLIK, karta, Przelewy24, za pobraniem. 30 dni na zwrot.</p>
+        <p className="mt-3 text-center text-sm"><Link href="/" className="link-typo">Kontynuuj zakupy</Link></p>
+        <p className="mt-5 text-xs text-muted">BLIK, karta, Przelewy24, za pobraniem. 30 dni na zwrot.</p>
       </aside>
     </div>
   );

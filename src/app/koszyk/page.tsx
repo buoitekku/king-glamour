@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { CartView } from "@/components/CartView";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageHead } from "@/components/PageHead";
 
 export const metadata: Metadata = { title: "Koszyk" };
 
 export default function CartPage() {
   return (
-    <div className="container-page py-6">
-      <Breadcrumbs items={[{ name: "Koszyk" }]} />
-      <h1 className="mt-4 mb-6 font-serif text-3xl font-semibold text-ink-900">Koszyk</h1>
-      <CartView />
+    <div className="pb-6">
+      <PageHead crumbs={[{ name: "Koszyk" }]} title="Koszyk" size="md" />
+      <div className="container-page pt-8">
+        <CartView />
+      </div>
     </div>
   );
 }

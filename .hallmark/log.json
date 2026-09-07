@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-09-07",
+    "scope": "app",
+    "macrostructure": "Catalogue (listingi) · Split Studio (produkt) · Workbench (koszyk, zamówienie, konto) · Long Document (blog, strony informacyjne)",
+    "theme": "Editorial",
+    "genre": "editorial",
+    "enrichment": "none",
+    "nav": "N12",
+    "footer": "Ft1 (dark)",
+    "design_system": "design.md",
+    "brief": "King Glamour · lock the system + redesign wszystkich podstron według design.md"
+  },
+  {
+    "date": "2026-09-07",
     "macrostructure": "Bento Grid",
     "theme": "Editorial",
     "genre": "editorial",

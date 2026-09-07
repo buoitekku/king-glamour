@@ -10,11 +10,11 @@ export default function ShippingPage() {
     <StaticPage title="Dostawa" lead={`Darmowa dostawa od ${formatPrice(FREE_SHIPPING_FROM)}. Zamówienia z działu 24h wysyłamy tego samego dnia.`}>
       <h2>Formy dostawy</h2>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead><tr className="border-b border-ink-100 text-left text-ink-500"><th className="py-2">Metoda</th><th className="py-2">Czas</th><th className="py-2">Koszt</th></tr></thead>
+        <table className="w-full text-sm tabular-nums">
+          <thead><tr className="border-b-2 border-ink text-left"><th className="caps py-2 font-normal">Metoda</th><th className="caps py-2 font-normal">Czas</th><th className="caps py-2 font-normal">Koszt</th></tr></thead>
           <tbody>
             {shippingMethods.map((m) => (
-              <tr key={m.id} className="border-b border-ink-100"><td className="py-2">{m.name}</td><td className="py-2">{m.eta}</td><td className="py-2">{m.price === 0 ? "0,00 zł" : formatPrice(m.price)}</td></tr>
+              <tr key={m.id} className="border-b border-rule"><td className="py-2.5 text-ink">{m.name}</td><td className="py-2.5 text-ink-2">{m.eta}</td><td className="py-2.5 text-ink-2">{m.price === 0 ? "0,00 zł" : formatPrice(m.price)}</td></tr>
             ))}
           </tbody>
         </table>
