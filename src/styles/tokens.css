@@ -1,0 +1,65 @@
+/* Hallmark · genre: editorial · macrostructure: Bento Grid · theme: Atelier · tone: luxury · anchor hue: 78 · enrichment: none · nav: N12 · footer: Ft1 · slop: pass (42–45) */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 */
+:root {
+  /* Paper, ink, rules — warm anchor (hue 78), tinted, no pure extremes */
+  --color-paper: oklch(97% 0.012 78);
+  --color-paper-2: oklch(94% 0.016 78);
+  --color-paper-3: oklch(24% 0.028 62);
+  --color-rule: oklch(84% 0.016 78);
+  --color-rule-2: oklch(90% 0.013 78);
+  --color-muted: oklch(44% 0.022 68);
+  --color-ink: oklch(20% 0.022 62);
+  --color-ink-2: oklch(30% 0.022 62);
+  --color-ink-on-dark: oklch(94% 0.012 80);
+  --color-muted-on-dark: oklch(78% 0.02 78);
+  --color-accent: oklch(46% 0.19 22);
+  --color-accent-ink: oklch(97% 0.01 78);
+  --color-focus: oklch(56% 0.16 55);
+  --color-ok: oklch(46% 0.1 150);
+
+  /* Type — Fraunces (display) + Source Serif 4 (body), self-hosted */
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-body: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+  --text-xs: 0.8rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.25rem;
+  --text-3xl: 2.8rem;
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --tracking-display: -0.02em;
+  --tracking-caps: 0.1em;
+
+  /* Space — 4-pt scale, named by role */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  /* Rules, radii, layers */
+  --rule-hair: 1px;
+  --radius-card: 2px;
+  --radius-input: 2px;
+  --radius-pill: 999px;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-sticky-nav: 300;
+  --z-modal: 400;
+  --banner-h: 2rem;
+}

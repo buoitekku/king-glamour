@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/source-serif-4/index.css";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";

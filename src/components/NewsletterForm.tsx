@@ -16,7 +16,7 @@ export function NewsletterForm() {
   };
 
   if (state === "ok") {
-    return <p className="rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-800">Dziękujemy! Sprawdź skrzynkę, wysłaliśmy kod rabatowy.</p>;
+    return <p className="border-l border-ok pl-3 text-sm text-ink-2">Dziękujemy! Sprawdź skrzynkę, wysłaliśmy kod rabatowy.</p>;
   }
 
   return (

@@ -1,0 +1,10 @@
+{
+  "scanned": "2026-09-07",
+  "framework": "Next.js 15 (app router), package.json",
+  "fontStack": "CSS vars --font-sans (Inter, not loaded) / --font-serif (Playfair Display, not loaded) in src/app/globals.css L6-7; tailwind.config.ts fontFamily",
+  "palette": "hex tokens in tailwind.config.ts theme.extend.colors (brand 50-950 warm brown, ink 100-900, accent #b5122b)",
+  "motion": "motion-cut (no framer-motion / gsap / motion in package.json)",
+  "spacing": "Tailwind default 4-pt scale, no extend.spacing",
+  "preserve": ["palette anchor (warm brown, red accent)", "Tailwind token approach", "routes and component ownership"],
+  "introduce": ["macrostructure", "loaded font pairing", "tinted paper surface", "section rhythm variety", "slop-test gates"]
+}

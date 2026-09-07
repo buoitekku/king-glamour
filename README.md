@@ -23,6 +23,10 @@ Lokalnie:
 STATIC_EXPORT=1 BASE_PATH=/king-glamour npm run build   # wynik w katalogu out/
 ```
 
+## Design
+
+Strona główna została przeprojektowana skillem Hallmark (makrostruktura Bento Grid, motyw Atelier, ton luxury). Tokeny OKLCH, fonty (Fraunces + Source Serif 4, samohostowane przez `@fontsource`) i skala odstępów są w `src/styles/tokens.css`; historia runów Hallmark w `.hallmark/log.json`.
+
 ## Architektura
 
 ```
